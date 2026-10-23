@@ -1,0 +1,1654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ESCAPE PROTOCOL: HAUNTED COLLEGE [PIXEL EDITION]</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Retro Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    /* ==========================================================================
+       RETRO 16-BIT / PC-98 PIXEL UI ENGINE STYLES
+       ========================================================================== */
+    :root {
+      --pixel-bg: #0b0e14;
+      --pixel-slate: #151d28;
+      --pixel-panel: #1e293b;
+      --phosphor-green: #39ff14;
+      --phosphor-dim: #15803d;
+      --amber-crt: #fca048;
+      --amber-dim: #9a4b08;
+      --blood-red: #a92727;
+      --parchment: #ded1b8;
+      --parchment-dark: #8c7653;
+    }
+
+    * {
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+    }
+
+    body {
+      background-color: var(--pixel-bg);
+      color: #e2e8f0;
+      font-family: 'VT323', monospace;
+      font-size: 18px;
+      user-select: none;
+      overflow-x: hidden;
+    }
+
+    .font-pixel {
+      font-family: 'Press Start 2P', monospace;
+    }
+
+    .font-terminal {
+      font-family: 'VT323', monospace;
+    }
+
+    /* Chunky Stepped Retro Pixel Borders */
+    .pixel-border {
+      border: 4px solid #000;
+      box-shadow:
+        inset -4px -4px 0px 0px #0f172a,
+        inset 4px 4px 0px 0px #475569,
+        4px 4px 0px 0px #000;
+    }
+
+    .pixel-border-amber {
+      border: 4px solid #3d1a00;
+      box-shadow:
+        inset -4px -4px 0px 0px var(--amber-dim),
+        inset 4px 4px 0px 0px var(--amber-crt),
+        4px 4px 0px 0px #000;
+    }
+
+    .pixel-border-green {
+      border: 4px solid #03200f;
+      box-shadow:
+        inset -4px -4px 0px 0px var(--phosphor-dim),
+        inset 4px 4px 0px 0px var(--phosphor-green),
+        4px 4px 0px 0px #000;
+    }
+
+    .pixel-border-red {
+      border: 4px solid #200404;
+      box-shadow:
+        inset -4px -4px 0px 0px #5e1111,
+        inset 4px 4px 0px 0px var(--blood-red),
+        4px 4px 0px 0px #000;
+    }
+
+    .pixel-border-parchment {
+      border: 4px solid #2e1d0f;
+      box-shadow:
+        inset -4px -4px 0px 0px var(--parchment-dark),
+        inset 4px 4px 0px 0px #f5eedf,
+        4px 4px 0px 0px #000;
+    }
+
+    /* Chunky Retro Pixel Button */
+    .pixel-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 10px;
+      border: 3px solid #000;
+      background: #1e293b;
+      color: #e2e8f0;
+      box-shadow:
+        inset -2px -2px 0px 0px #090d16,
+        inset 2px 2px 0px 0px #64748b,
+        2px 2px 0px 0px #000;
+      cursor: pointer;
+      transition: none;
+    }
+    .pixel-btn:hover {
+      background: #334155;
+      color: #fff;
+    }
+    .pixel-btn:active {
+      box-shadow:
+        inset 2px 2px 0px 0px #090d16,
+        inset -2px -2px 0px 0px #64748b;
+      transform: translate(2px, 2px);
+    }
+
+    /* Glows */
+    .glow-green {
+      text-shadow: 0 0 8px rgba(57, 255, 20, 0.8), 0 0 2px #39ff14;
+    }
+    .glow-amber {
+      text-shadow: 0 0 8px rgba(252, 160, 72, 0.8), 0 0 2px #fca048;
+    }
+    .glow-red {
+      text-shadow: 0 0 8px rgba(169, 39, 39, 0.9), 0 0 2px #ff4d4d;
+    }
+
+    /* CRT Scanlines Overlay */
+    .crt-scanlines {
+      background: linear-gradient(
+        to bottom,
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.55) 50%
+      );
+      background-size: 100% 4px;
+      pointer-events: none;
+    }
+
+    /* Subtle Fluorescent Tube / CRT Flicker */
+    @keyframes pixelFlicker {
+      0%, 100% { opacity: 0.98; }
+      12% { opacity: 0.88; }
+      14% { opacity: 0.98; }
+      48% { opacity: 0.92; }
+      50% { opacity: 0.70; }
+      52% { opacity: 0.98; }
+      85% { opacity: 0.95; }
+      86% { opacity: 0.82; }
+      88% { opacity: 0.98; }
+    }
+    .retro-flicker {
+      animation: pixelFlicker 6s steps(1) infinite;
+    }
+
+    /* Hotspot blinking brackets */
+    @keyframes bracketBlink {
+      0%, 49% { opacity: 1; transform: scale(1); }
+      50%, 100% { opacity: 0.35; transform: scale(0.95); }
+    }
+    .blink-hotspot {
+      animation: bracketBlink 1s infinite steps(1);
+    }
+
+    /* Pixel Shake */
+    @keyframes pixelShake {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(-4px, 4px); }
+      50% { transform: translate(4px, -4px); }
+      75% { transform: translate(-4px, -2px); }
+    }
+    .pixel-shake {
+      animation: pixelShake 0.25s steps(2);
+    }
+
+    /* Scrollbars */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090d16;
+      border-left: 2px solid #000;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #334155;
+      border: 2px solid #000;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between select-none">
+
+  <!-- ================= TOP RETRO HUD ================= -->
+  <header class="w-full bg-[#090d16] border-b-4 border-black px-3 sm:px-5 py-2.5 flex items-center justify-between z-30 shadow-md">
+    <!-- Brand & Time -->
+    <div class="flex items-center space-x-3 sm:space-x-4">
+      <div class="px-2 py-1 bg-red-950 border-2 border-red-700 text-red-500 font-pixel text-[10px] tracking-wider flex items-center space-x-1">
+        <i class="fa-solid fa-triangle-exclamation animate-pulse"></i>
+        <span>ESCAPE_PROTOCOL</span>
+      </div>
+      
+      <!-- Retro 11:47 PM Clock -->
+      <div class="flex items-center space-x-2 bg-black px-2.5 py-1 border-2 border-gray-800">
+        <i class="fa-regular fa-clock text-amber-500 text-sm"></i>
+        <span class="font-pixel text-[11px] text-amber-400 glow-amber tracking-widest">11:47 PM</span>
+      </div>
+    </div>
+
+    <!-- Center Room Location -->
+    <div class="hidden md:flex items-center space-x-2 font-pixel text-[10px]">
+      <span class="text-gray-500">ZONE:</span>
+      <span id="hud-room-name" class="text-emerald-400 glow-green">01_RECEPTION</span>
+      <span id="hud-stage-badge" class="px-1.5 py-0.5 bg-gray-900 border border-gray-700 text-gray-400 text-[9px]">[STG 1/3]</span>
+    </div>
+
+    <!-- Retro Controls: Audio, Scanlines, Restart -->
+    <div class="flex items-center space-x-2">
+      <!-- Scanline Switch -->
+      <button id="btn-toggle-scanlines" class="pixel-btn px-2 py-1.5 text-[9px] flex items-center space-x-1" title="Toggle CRT Scanline Overlay">
+        <i class="fa-solid fa-tv text-cyan-400"></i>
+        <span class="hidden lg:inline" id="scanlines-label">CRT: ON</span>
+      </button>
+
+      <!-- 8-Bit Chiptune Sound Toggle -->
+      <button id="btn-toggle-audio" class="pixel-btn px-2 py-1.5 text-[9px] flex items-center space-x-1" title="Toggle 8-bit Audio">
+        <i id="audio-icon" class="fa-solid fa-volume-xmark text-red-400"></i>
+        <span class="hidden sm:inline" id="audio-label">SND: OFF</span>
+      </button>
+
+      <!-- Mission Restart -->
+      <button id="btn-restart" class="pixel-btn px-2 py-1.5 text-[9px] text-red-400 hover:text-red-200" title="Restart Mission">
+        <i class="fa-solid fa-arrows-rotate"></i>
+        <span class="hidden sm:inline ml-1">REBOOT</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ================= RETRO VIEWPORT STAGE ================= -->
+  <main class="flex-1 flex flex-col items-center justify-center p-2 sm:p-4 relative">
+    
+    <!-- 16:9 Retro Display Container -->
+    <div id="screen-container" class="w-full max-w-5xl aspect-[16/9] relative bg-black pixel-border overflow-hidden select-none">
+      
+      <!-- Layer 1: Pixel Art Room SVGs (320x180 Native Crisp Pixel Rendering) -->
+      <div id="room-viewport" class="absolute inset-0 w-full h-full retro-flicker">
+        <!-- SVG injected dynamically -->
+      </div>
+
+      <!-- Layer 2: CRT Scanline Filter (Togglable) -->
+      <div id="crt-overlay" class="absolute inset-0 w-full h-full crt-scanlines z-15"></div>
+
+      <!-- Layer 3: Interactive Pixel Hotspots Overlay -->
+      <div id="hotspots-layer" class="absolute inset-0 w-full h-full z-20 pointer-events-auto">
+        <!-- Interactive retro hotspot markers injected here -->
+      </div>
+
+      <!-- Retro Alert Toast -->
+      <div id="pixel-toast" class="absolute top-4 left-1/2 -translate-x-1/2 z-30 px-3 py-1.5 bg-black border-2 border-amber-500 text-amber-300 font-pixel text-[9px] opacity-0 transition-opacity duration-150 shadow-2xl flex items-center space-x-2">
+        <i class="fa-solid fa-terminal text-amber-400"></i>
+        <span id="pixel-toast-text">SYSTEM LOG UPDATED</span>
+      </div>
+
+      <!-- Audio Wakeup Hint for Browser Autoplay Policy -->
+      <div id="audio-hint-box" class="absolute bottom-2 left-2 z-25 bg-[#090d16] border-2 border-amber-500/80 px-2.5 py-1 text-amber-300 font-pixel text-[8px] cursor-pointer flex items-center space-x-2">
+        <span class="animate-pulse">▶</span>
+        <span>CLICK ANYWHERE TO INITIALIZE 8-BIT SOUND ENGINE</span>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- ================= RETRO DOCK / INVENTORY ================= -->
+  <footer class="w-full bg-[#090d16] border-t-4 border-black px-3 sm:px-6 py-2.5 z-30 flex flex-wrap items-center justify-between gap-3 text-xs">
+    
+    <!-- Chunky 4-Slot Pixel Inventory Tray -->
+    <div class="flex items-center space-x-2 sm:space-x-3">
+      <div class="font-pixel text-[9px] text-gray-400 flex items-center space-x-1">
+        <i class="fa-solid fa-briefcase text-gray-500"></i>
+        <span class="hidden md:inline">INVENTORY:</span>
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <!-- Slot 0 -->
+        <div class="inventory-slot w-11 h-11 sm:w-12 sm:h-12 bg-[#0d131d] border-2 border-gray-700 flex items-center justify-center cursor-pointer relative" data-slot="0">
+          <span class="text-gray-700 font-pixel text-[8px]">01</span>
+        </div>
+        <!-- Slot 1 -->
+        <div class="inventory-slot w-11 h-11 sm:w-12 sm:h-12 bg-[#0d131d] border-2 border-gray-700 flex items-center justify-center cursor-pointer relative" data-slot="1">
+          <span class="text-gray-700 font-pixel text-[8px]">02</span>
+        </div>
+        <!-- Slot 2 -->
+        <div class="inventory-slot w-11 h-11 sm:w-12 sm:h-12 bg-[#0d131d] border-2 border-gray-700 flex items-center justify-center cursor-pointer relative" data-slot="2">
+          <span class="text-gray-700 font-pixel text-[8px]">03</span>
+        </div>
+        <!-- Slot 3 -->
+        <div class="inventory-slot w-11 h-11 sm:w-12 sm:h-12 bg-[#0d131d] border-2 border-gray-700 flex items-center justify-center cursor-pointer relative" data-slot="3">
+          <span class="text-gray-700 font-pixel text-[8px]">04</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Objective Reminder -->
+    <div class="hidden lg:flex items-center space-x-2 font-terminal text-base text-gray-300 bg-black px-3 py-1 border-2 border-gray-800">
+      <span class="text-amber-500 font-bold">&gt; MISSION OBJECTIVE:</span>
+      <span id="hud-objective-text" class="text-gray-200">Inspect visitor register & decode corridor gate access PIN.</span>
+    </div>
+
+    <!-- Action Buttons: Detective Notebook & Hint -->
+    <div class="flex items-center space-x-2 sm:space-x-3">
+      <!-- Notebook -->
+      <button id="btn-open-notebook" class="pixel-btn px-2.5 sm:px-3 py-2 text-[9px] text-amber-300 flex items-center space-x-1.5 border-amber-900">
+        <i class="fa-solid fa-book text-amber-400"></i>
+        <span>NOTEBOOK</span>
+        <span id="notebook-badge" class="hidden ml-1 px-1 py-0.2 bg-red-600 text-white font-pixel text-[7px] animate-pulse">!</span>
+      </button>
+
+      <!-- 3-Tier Hint -->
+      <button id="btn-open-hints" class="pixel-btn px-2.5 sm:px-3 py-2 text-[9px] text-emerald-400 flex items-center space-x-1.5 border-emerald-900">
+        <i class="fa-solid fa-lightbulb text-emerald-400"></i>
+        <span>HINT</span>
+        <span id="hints-badge" class="font-pixel text-[8px] bg-emerald-950 text-emerald-300 px-1 border border-emerald-700">0/3</span>
+      </button>
+    </div>
+
+  </footer>
+
+  <!-- ================= RETRO RPG DIALOG & INSPECTION MODAL ================= -->
+  <div id="modal-container" class="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-3 hidden select-none">
+    <div id="modal-window" class="w-full max-w-lg bg-[#0e141e] pixel-border-green flex flex-col max-h-[90vh]">
+      
+      <!-- Window Title Bar -->
+      <div class="bg-[#052210] border-b-4 border-black px-3 py-2 flex items-center justify-between">
+        <div class="flex items-center space-x-2">
+          <span class="text-emerald-400 font-pixel text-[10px] glow-green" id="modal-title">&gt; INSPECTION</span>
+        </div>
+        <button id="btn-modal-close" class="pixel-btn px-2 py-0.5 text-[9px] text-red-400 hover:text-red-200" title="Close">[X]</button>
+      </div>
+
+      <!-- Window Content Body -->
+      <div id="modal-content" class="p-4 sm:p-5 overflow-y-auto font-terminal text-lg text-gray-200 space-y-4">
+        <!-- Injected dynamically -->
+      </div>
+
+      <!-- Window Status Bar -->
+      <div class="bg-black border-t-4 border-black px-3 py-1.5 flex items-center justify-between text-xs text-gray-400 font-terminal">
+        <span id="modal-status-msg">&gt; PRESS [X] OR ESC TO RETURN</span>
+        <span class="font-pixel text-[8px] text-emerald-500">SEC_LEVEL: ALPHA</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= DETECTIVE NOTEBOOK MODAL (PC-98 DOSSIER) ================= -->
+  <div id="notebook-modal" class="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-3 hidden select-none">
+    <div class="w-full max-w-lg bg-[#ded1b8] text-[#291b10] pixel-border-parchment flex flex-col max-h-[85vh]">
+      <div class="bg-[#b39e7c] border-b-4 border-[#2e1d0f] px-3 py-2 flex items-center justify-between">
+        <span class="font-pixel text-[10px] text-[#2e1d0f] font-bold">CASE_LOG // INCIDENT: 11:47 PM</span>
+        <button id="btn-close-notebook" class="font-pixel text-[10px] px-2 py-0.5 bg-[#422914] text-white border-2 border-black hover:bg-black">[X]</button>
+      </div>
+      <div class="p-4 sm:p-5 overflow-y-auto space-y-3 font-terminal text-lg">
+        <div class="border-b-2 border-[#8c7653] pb-2 text-sm font-pixel text-[#52371c]">
+          CAMPUS DISASTER EVIDENCE DOSSIER
+        </div>
+        <div id="notebook-list" class="space-y-2">
+          <p class="text-[#7d6547] italic">&gt; No logs recorded yet. Inspect marked coordinates in rooms.</p>
+        </div>
+      </div>
+      <div class="bg-[#c7b393] border-t-2 border-[#8c7653] px-3 py-1 text-xs font-pixel text-[#52371c] flex justify-between">
+        <span>STATUS: SEALED WING INVESTIGATION</span>
+        <span>CONFIDENTIAL</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= HINT SYSTEM MODAL ================= -->
+  <div id="hints-modal" class="fixed inset-0 z-50 bg-black/85 flex items-center justify-center p-3 hidden select-none">
+    <div class="w-full max-w-md bg-[#0a150e] pixel-border-green flex flex-col">
+      <div class="bg-[#062414] border-b-4 border-black px-3 py-2 flex items-center justify-between">
+        <span class="font-pixel text-[10px] text-emerald-400 glow-green">TACTICAL HINT TERMINAL</span>
+        <button id="btn-close-hints" class="pixel-btn px-2 py-0.5 text-[9px] text-red-400">[X]</button>
+      </div>
+      <div class="p-4 space-y-3 font-terminal text-lg text-emerald-300">
+        <div id="hint-t1" class="p-2 bg-black border-2 border-emerald-900">
+          <p class="font-pixel text-[8px] text-emerald-500 mb-1">[TIER 1] DIRECTIONAL ADVICE:</p>
+          <p id="hint-msg-1" class="text-gray-500 italic">LOCKED</p>
+        </div>
+        <div id="hint-t2" class="p-2 bg-black border-2 border-emerald-900">
+          <p class="font-pixel text-[8px] text-emerald-500 mb-1">[TIER 2] DEDUCTIVE CORRELATION:</p>
+          <p id="hint-msg-2" class="text-gray-500 italic">LOCKED</p>
+        </div>
+        <div id="hint-t3" class="p-2 bg-black border-2 border-emerald-900">
+          <p class="font-pixel text-[8px] text-amber-500 mb-1">[TIER 3] DIRECT CIPHER OVERRIDE:</p>
+          <p id="hint-msg-3" class="text-gray-500 italic">LOCKED</p>
+        </div>
+      </div>
+      <div class="bg-black border-t-4 border-black p-3 flex justify-between items-center">
+        <span class="font-pixel text-[8px] text-gray-500">PENALTY: -50 PTS / HINT</span>
+        <button id="btn-reveal-hint" class="pixel-btn px-3 py-1.5 text-[9px] text-emerald-300 hover:text-white bg-emerald-950">
+          DECRYPT NEXT HINT
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= RETRO VICTORY FANFARE SCREEN ================= -->
+  <div id="ending-screen" class="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 hidden select-none">
+    <div class="w-full max-w-lg bg-[#0d141e] pixel-border-amber p-6 text-center space-y-4">
+      <div class="text-red-500 font-pixel text-xs tracking-widest animate-pulse">
+        *** EMERGENCY LOCKDOWN TERMINATED ***
+      </div>
+      <h2 class="font-pixel text-amber-400 text-lg sm:text-xl glow-amber">
+        MISSION ACCOMPLISHED
+      </h2>
+      <p class="font-terminal text-xl text-gray-300 text-left bg-black p-3 border-2 border-gray-800 leading-snug">
+        &gt; The blast doors release with a deafening metallic hiss. Cold midnight air floods into the sealed East Wing. With Inspector Vance's log and the Project Zero anomaly dossier secured, you step outside into the safety of the dark foggy campus perimeter.
+      </p>
+
+      <!-- Retro Stats Grid -->
+      <div class="grid grid-cols-3 gap-2 font-pixel text-[9px] py-2">
+        <div class="p-2 bg-black border-2 border-gray-800">
+          <span class="text-gray-500 block text-[7px] mb-1">ELAPSED TIME</span>
+          <span id="end-time" class="text-amber-400">02:45</span>
+        </div>
+        <div class="p-2 bg-black border-2 border-gray-800">
+          <span class="text-gray-500 block text-[7px] mb-1">CLUES SECURED</span>
+          <span id="end-clues" class="text-emerald-400">6 / 6</span>
+        </div>
+        <div class="p-2 bg-black border-2 border-gray-800">
+          <span class="text-gray-500 block text-[7px] mb-1">FINAL RANK</span>
+          <span id="end-rank" class="text-cyan-400">S-RANK</span>
+        </div>
+      </div>
+
+      <button id="btn-replay" class="w-full pixel-btn py-3 text-xs text-amber-300 bg-amber-950 hover:bg-amber-900 border-amber-600">
+        RESTART MISSION [PRESS START]
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= GAME SCRIPT ENGINE ================= -->
+  <script>
+    /* ==========================================================================
+       1. 8-BIT / CHIPTUNE PROCEDURAL SOUND SYNTHESIZER (ZERO EXTERNAL MP3s)
+       ========================================================================== */
+    class ChiptuneAudioEngine {
+      constructor() {
+        this.ctx = null;
+        this.isMuted = true;
+        this.droneOsc1 = null;
+        this.droneOsc2 = null;
+        this.droneGain = null;
+      }
+
+      init() {
+        if (this.ctx) return;
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        this.ctx = new AudioContext();
+        this.startRetroDrone();
+      }
+
+      toggleAudio() {
+        if (!this.ctx) {
+          this.init();
+          this.isMuted = false;
+        } else {
+          this.isMuted = !this.isMuted;
+        }
+
+        if (this.ctx.state === 'suspended') {
+          this.ctx.resume();
+        }
+
+        if (this.droneGain) {
+          this.droneGain.gain.setValueAtTime(this.isMuted ? 0 : 0.08, this.ctx.currentTime);
+        }
+        return this.isMuted;
+      }
+
+      // Eerie retro pulse wave drone
+      startRetroDrone() {
+        if (!this.ctx) return;
+        this.droneOsc1 = this.ctx.createOscillator();
+        this.droneOsc2 = this.ctx.createOscillator();
+        this.droneGain = this.ctx.createGain();
+
+        this.droneOsc1.type = 'sawtooth';
+        this.droneOsc1.frequency.setValueAtTime(65.41, this.ctx.currentTime); // C2
+
+        this.droneOsc2.type = 'square';
+        this.droneOsc2.frequency.setValueAtTime(68.5, this.ctx.currentTime); // dissonant pulse
+
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(220, this.ctx.currentTime);
+
+        this.droneOsc1.connect(filter);
+        this.droneOsc2.connect(filter);
+        filter.connect(this.droneGain);
+        this.droneGain.connect(this.ctx.destination);
+
+        this.droneGain.gain.setValueAtTime(this.isMuted ? 0 : 0.08, this.ctx.currentTime);
+        this.droneOsc1.start();
+        this.droneOsc2.start();
+      }
+
+      // 8-bit Square Wave Keypad / UI Blip
+      playBlip(freq = 880) {
+        if (!this.ctx || this.isMuted) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc.type = 'square';
+        osc.frequency.setValueAtTime(freq, now);
+        osc.frequency.setValueAtTime(freq * 0.75, now + 0.02);
+
+        gain.gain.setValueAtTime(0.18, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.06);
+      }
+
+      // Rotary dial tumbler click
+      playDialClick() {
+        if (!this.ctx || this.isMuted) return;
+        const now = this.ctx.currentTime;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(320, now);
+        osc.frequency.exponentialRampToValueAtTime(80, now + 0.03);
+        gain.gain.setValueAtTime(0.2, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start(now);
+        osc.stop(now + 0.03);
+      }
+
+      // 8-bit Error Buzzer
+      playError() {
+        if (!this.ctx || this.isMuted) return;
+        const now = this.ctx.currentTime;
+        const osc1 = this.ctx.createOscillator();
+        const osc2 = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+
+        osc1.type = 'sawtooth';
+        osc2.type = 'square';
+        osc1.frequency.setValueAtTime(110, now);
+        osc2.frequency.setValueAtTime(116, now);
+
+        gain.gain.setValueAtTime(0.25, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+
+        osc1.connect(gain);
+        osc2.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc1.start(now);
+        osc2.start(now);
+        osc1.stop(now + 0.35);
+        osc2.stop(now + 0.35);
+      }
+
+      // Noise burst for heavy door opening
+      playDoorBurst() {
+        if (!this.ctx || this.isMuted) return;
+        const bufferSize = this.ctx.sampleRate * 0.45;
+        const buffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+        const data = buffer.getChannelData(0);
+        for (let i = 0; i < bufferSize; i++) {
+          data[i] = Math.random() * 2 - 1;
+        }
+
+        const noise = this.ctx.createBufferSource();
+        noise.buffer = buffer;
+
+        const filter = this.ctx.createBiquadFilter();
+        filter.type = 'lowpass';
+        filter.frequency.setValueAtTime(450, this.ctx.currentTime);
+        filter.frequency.linearRampToValueAtTime(120, this.ctx.currentTime + 0.45);
+
+        const gain = this.ctx.createGain();
+        gain.gain.setValueAtTime(0.3, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.45);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(this.ctx.destination);
+        noise.start();
+      }
+
+      // Chiptune Victory Jingle
+      playVictoryFanfare() {
+        if (!this.ctx || this.isMuted) return;
+        const notes = [
+          { f: 523.25, d: 0.1 },  // C5
+          { f: 659.25, d: 0.1 },  // E5
+          { f: 783.99, d: 0.1 },  // G5
+          { f: 1046.50, d: 0.25 }, // C6
+          { f: 880.00, d: 0.12 }, // A5
+          { f: 1046.50, d: 0.4 }  // C6
+        ];
+        let offset = 0;
+        notes.forEach(note => {
+          const now = this.ctx.currentTime + offset;
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(note.f, now);
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + note.d);
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+          osc.start(now);
+          osc.stop(now + note.d);
+          offset += note.d + 0.03;
+        });
+      }
+    }
+
+    const sfx = new ChiptuneAudioEngine();
+
+    /* ==========================================================================
+       2. PIXEL ART ROOM SVGS (320x180 NATIVE RESOLUTION / CRISP PIXELS)
+       ========================================================================== */
+    const ROOM_DATA = [
+      /* ---------------- ROOM 1: RECEPTION ---------------- */
+      {
+        id: "reception",
+        name: "01_RECEPTION",
+        badge: "[STG 1/3]",
+        objective: "Inspect noticeboard & visitor log. Punch in 3-digit gate PIN.",
+        hints: [
+          "Check the Bulletin Board on the right wall to see whose clearance was granted.",
+          "Auditor Vance's name is in the visitor logbook on the counter. Read the gate passcode for his entry.",
+          "Code is 492. Interact with the iron gate keypad and enter 4-9-2."
+        ],
+        svg: `
+          <svg viewBox="0 0 320 180" class="w-full h-full" shape-rendering="crispEdges">
+            <!-- Background Slate Wall -->
+            <rect x="0" y="0" width="320" height="180" fill="#0d131a"/>
+            
+            <!-- Wall Brick Lines (Pixel Grid) -->
+            <path d="M0,30 H320 M0,60 H320 M0,90 H320 M0,120 H320" stroke="#141c26" stroke-width="2"/>
+            <path d="M40,0 V30 M120,0 V30 M200,0 V30 M280,0 V30" stroke="#141c26" stroke-width="2"/>
+            <path d="M80,30 V60 M160,30 V60 M240,30 V60" stroke="#141c26" stroke-width="2"/>
+
+            <!-- Rainy Moonlit Window (Left) -->
+            <rect x="15" y="25" width="45" height="75" fill="#08101a" stroke="#223142" stroke-width="3"/>
+            <rect x="18" y="28" width="18" height="32" fill="#1b2a3a"/>
+            <rect x="40" y="28" width="18" height="32" fill="#1e3042"/>
+            <rect x="18" y="64" width="18" height="33" fill="#131e2b"/>
+            <rect x="40" y="64" width="18" height="33" fill="#172433"/>
+            <!-- Rain streaks -->
+            <line x1="24" y1="32" x2="22" y2="44" stroke="#486581" stroke-width="1"/>
+            <line x1="46" y1="36" x2="44" y2="52" stroke="#486581" stroke-width="1"/>
+            <line x1="30" y1="70" x2="28" y2="84" stroke="#486581" stroke-width="1"/>
+            <!-- Stepped Moonlight Glow Polygon -->
+            <polygon points="60,25 60,100 130,150 70,150" fill="#627d98" opacity="0.12"/>
+
+            <!-- Center Barred Security Gate (The Exit) -->
+            <rect x="130" y="32" width="60" height="108" fill="#05080c" stroke="#1e293b" stroke-width="4"/>
+            <!-- Pixel Iron Bars -->
+            <line x1="142" y1="32" x2="142" y2="140" stroke="#334155" stroke-width="2"/>
+            <line x1="154" y1="32" x2="154" y2="140" stroke="#334155" stroke-width="2"/>
+            <line x1="166" y1="32" x2="166" y2="140" stroke="#334155" stroke-width="2"/>
+            <line x1="178" y1="32" x2="178" y2="140" stroke="#334155" stroke-width="2"/>
+            
+            <!-- Digital Keypad Box on Gate -->
+            <rect x="186" y="80" width="12" height="22" fill="#111" stroke="#475569" stroke-width="1.5"/>
+            <rect x="188" y="83" width="8" height="5" fill="#000"/>
+            <!-- Blinking Red LED -->
+            <rect x="191" y="85" width="2" height="2" fill="#ef4444" class="animate-pulse"/>
+
+            <!-- Overhead Fluorescent Tube -->
+            <rect x="135" y="4" width="50" height="6" fill="#334155"/>
+            <rect x="140" y="8" width="40" height="3" fill="#fef08a" opacity="0.9"/>
+            <polygon points="140,11 180,11 205,70 115,70" fill="#fef08a" opacity="0.08"/>
+
+            <!-- Bulletin Noticeboard (Right Wall) -->
+            <rect x="235" y="30" width="65" height="50" fill="#382414" stroke="#614125" stroke-width="3"/>
+            <rect x="242" y="36" width="20" height="24" fill="#ded1b8"/>
+            <rect x="268" y="40" width="24" height="32" fill="#c4b292"/>
+            <!-- Red pushpin -->
+            <rect x="251" y="37" width="2" height="2" fill="#dc2626"/>
+            <rect x="279" y="42" width="2" height="2" fill="#dc2626"/>
+
+            <!-- Wooden Reception Counter Desk -->
+            <rect x="60" y="115" width="200" height="45" fill="#1f140e" stroke="#3d2719" stroke-width="3"/>
+            <rect x="60" y="115" width="200" height="6" fill="#3d2719"/>
+            <!-- Desk Panels -->
+            <rect x="75" y="128" width="45" height="26" fill="#150d09" stroke="#2e1d13" stroke-width="1"/>
+            <rect x="135" y="128" width="50" height="26" fill="#150d09" stroke="#2e1d13" stroke-width="1"/>
+            <rect x="200" y="128" width="45" height="26" fill="#150d09" stroke="#2e1d13" stroke-width="1"/>
+
+            <!-- Visitor Logbook on Desk -->
+            <rect x="148" y="110" width="26" height="12" fill="#ded1b8" stroke="#523922" stroke-width="1"/>
+            <line x1="161" y1="110" x2="161" y2="122" stroke="#523922" stroke-width="1"/>
+            <line x1="152" y1="114" x2="158" y2="114" stroke="#715132" stroke-width="1"/>
+            <line x1="164" y1="114" x2="170" y2="114" stroke="#715132" stroke-width="1"/>
+
+            <!-- Pixel Floor Grid -->
+            <rect x="0" y="155" width="320" height="25" fill="#090d12"/>
+            <line x1="0" y1="165" x2="320" y2="165" stroke="#131b24" stroke-width="1"/>
+          </svg>
+        `,
+        hotspots: [
+          { id: "noticeboard", label: "BULLETIN_BOARD", x: 84, y: 32, icon: "fa-thumbtack" },
+          { id: "register", label: "VISITOR_LOG", x: 50, y: 65, icon: "fa-book" },
+          { id: "gate_keypad", label: "GATE_KEYPAD", x: 60, y: 51, icon: "fa-lock" }
+        ]
+      },
+
+      /* ---------------- ROOM 2: LOCKER ROW ---------------- */
+      {
+        id: "lockers",
+        name: "02_LOCKER_ROW",
+        badge: "[STG 2/3]",
+        objective: "Inspect torn schedule, crack Locker #204 combination dial (7-3-8), swipe keycard at bulkhead.",
+        hints: [
+          "Check the torn schedule pinned to the right wall for period associations.",
+          "Locker #204 belongs to classes: Chem (Pd 7), Math (Pd 3), Physics Lab (Pd 8).",
+          "Set the rotary tumblers to 7 - 3 - 8 to unlock the Master Keycard."
+        ],
+        svg: `
+          <svg viewBox="0 0 320 180" class="w-full h-full" shape-rendering="crispEdges">
+            <!-- Perspective Hallway Walls -->
+            <rect x="0" y="0" width="320" height="180" fill="#070a0e"/>
+            
+            <!-- Vanishing Corridor Endpoint -->
+            <polygon points="125,55 195,55 195,115 125,115" fill="#000" stroke="#1a2332" stroke-width="2"/>
+            <!-- Ominous Silhouette in hallway distance -->
+            <ellipse cx="160" cy="85" rx="5" ry="12" fill="#0f172a"/>
+            <circle cx="160" cy="72" r="4" fill="#0f172a"/>
+
+            <!-- Ceiling & Floor Trapezius -->
+            <polygon points="0,0 320,0 195,55 125,55" fill="#0b1017"/>
+            <polygon points="0,180 320,180 195,115 125,115" fill="#080c10"/>
+            <line x1="0" y1="180" x2="125" y2="115" stroke="#151e2b" stroke-width="2"/>
+            <line x1="320" y1="180" x2="195" y2="115" stroke="#151e2b" stroke-width="2"/>
+
+            <!-- Overhead Flicker Lights -->
+            <rect x="150" y="25" width="20" height="3" fill="#fef08a" opacity="0.8"/>
+            <line x1="160" y1="12" x2="160" y2="25" stroke="#475569" stroke-width="1"/>
+
+            <!-- Left Wall: Weathered Green Lockers in Perspective -->
+            <polygon points="0,25 125,55 125,115 0,165" fill="#122319" stroke="#1e3b2b" stroke-width="2"/>
+            <!-- Individual Locker Slits -->
+            <line x1="25" y1="31" x2="25" y2="155" stroke="#08140d" stroke-width="2"/>
+            <line x1="55" y1="38" x2="55" y2="145" stroke="#08140d" stroke-width="2"/>
+            <line x1="85" y1="45" x2="85" y2="135" stroke="#08140d" stroke-width="2"/>
+
+            <!-- Locker #204 (Highlighted with Yellow Chalk) -->
+            <polygon points="55,38 85,45 85,135 55,145" fill="#183023" stroke="#eab308" stroke-width="1.5" stroke-dasharray="3"/>
+            <!-- Locker Handle & Brass Dial -->
+            <circle cx="75" cy="88" r="3" fill="#d97706" stroke="#451a03" stroke-width="1"/>
+            <text x="60" y="60" fill="#fde047" font-family="'VT323', monospace" font-size="9">#204</text>
+
+            <!-- Blood Smear on Locker -->
+            <rect x="35" y="70" width="3" height="12" fill="#7f1d1d"/>
+            <rect x="38" y="76" width="4" height="3" fill="#7f1d1d"/>
+
+            <!-- Right Wall: Timetable Notice & Bulkhead Door -->
+            <polygon points="320,25 195,55 195,115 320,165" fill="#0f1723" stroke="#1c2a3d" stroke-width="2"/>
+            
+            <!-- Torn Class Schedule (Right Wall) -->
+            <polygon points="275,60 305,55 308,88 277,95" fill="#ded1b8" stroke="#64748b" stroke-width="1"/>
+            <line x1="282" y1="68" x2="298" y2="65" stroke="#475569" stroke-width="1"/>
+            <line x1="282" y1="75" x2="298" y2="72" stroke="#475569" stroke-width="1"/>
+
+            <!-- Heavy Blast Bulkhead Security Door -->
+            <polygon points="215,62 250,70 250,118 215,108" fill="#18181b" stroke="#0284c7" stroke-width="2"/>
+            <!-- RFID Reader with Flashing Red/Cyan LED -->
+            <rect x="252" y="88" width="5" height="9" fill="#0f172a" stroke="#38bdf8" stroke-width="1"/>
+            <rect x="253" y="90" width="3" height="2" fill="#ef4444" class="animate-pulse"/>
+          </svg>
+        `,
+        hotspots: [
+          { id: "schedule", label: "TORN_TIMETABLE", x: 90, y: 44, icon: "fa-file-lines" },
+          { id: "locker_204", label: "LOCKER_204_DIAL", x: 23, y: 50, icon: "fa-vault" },
+          { id: "bulkhead_door", label: "ARCHIVE_BULKHEAD", x: 74, y: 52, icon: "fa-id-card" }
+        ]
+      },
+
+      /* ---------------- ROOM 3: PROJECT ZERO ARCHIVE ---------------- */
+      {
+        id: "archive",
+        name: "03_PROJECT_ZERO",
+        badge: "[STG 3/3]",
+        objective: "Inspect frozen clock and classified dossier. Execute '1147' in CRT Terminal.",
+        hints: [
+          "Check the large antique clock above the mainframe terminal.",
+          "The clock stopped at 11:47 PM, which marks the exact moment of the containment rupture.",
+          "Boot the CRT Terminal and enter the 4-digit timestamp PIN '1147' to execute system purge."
+        ],
+        svg: `
+          <svg viewBox="0 0 320 180" class="w-full h-full" shape-rendering="crispEdges">
+            <!-- Dark Server Room Background -->
+            <rect x="0" y="0" width="320" height="180" fill="#080c10"/>
+
+            <!-- Left Server Racks with Blinking Pixel LEDs -->
+            <rect x="15" y="20" width="70" height="130" fill="#111827" stroke="#1f2937" stroke-width="3"/>
+            <line x1="15" y1="50" x2="85" y2="50" stroke="#1f2937" stroke-width="2"/>
+            <line x1="15" y1="80" x2="85" y2="80" stroke="#1f2937" stroke-width="2"/>
+            <line x1="15" y1="110" x2="85" y2="110" stroke="#1f2937" stroke-width="2"/>
+            <!-- Blinking LED Grid -->
+            <rect x="22" y="30" width="3" height="3" fill="#22c55e"/>
+            <rect x="30" y="30" width="3" height="3" fill="#22c55e"/>
+            <rect x="38" y="30" width="3" height="3" fill="#eab308" class="animate-pulse"/>
+            <rect x="46" y="30" width="3" height="3" fill="#ef4444"/>
+            <!-- Magnetic Tape Reel (Pixel circles) -->
+            <circle cx="50" cy="65" r="8" fill="#1f2937" stroke="#475569" stroke-width="2"/>
+            <circle cx="50" cy="65" r="3" fill="#94a3b8"/>
+
+            <!-- Massive Wall Clock (Frozen at 11:47) -->
+            <circle cx="160" cy="40" r="22" fill="#fef3c7" stroke="#78350f" stroke-width="4"/>
+            <circle cx="160" cy="40" r="19" fill="#fdfbf7"/>
+            <!-- Hour Hand (~11:45-11:47) -->
+            <line x1="160" y1="40" x2="155" y2="28" stroke="#991b1b" stroke-width="2.5"/>
+            <!-- Minute Hand (~47m) -->
+            <line x1="160" y1="40" x2="145" y2="36" stroke="#000" stroke-width="2"/>
+            <circle cx="160" cy="40" r="2" fill="#000"/>
+
+            <!-- Right Wall Escape Blast Vault -->
+            <rect x="235" y="25" width="70" height="125" fill="#18181b" stroke="#991b1b" stroke-width="4"/>
+            <!-- Heavy Locking Wheel -->
+            <circle cx="270" cy="85" r="16" fill="#27272a" stroke="#71717a" stroke-width="3"/>
+            <line x1="270" y1="69" x2="270" y2="101" stroke="#a1a1aa" stroke-width="3"/>
+            <line x1="254" y1="85" x2="286" y2="85" stroke="#a1a1aa" stroke-width="3"/>
+
+            <!-- Central Computer Desk -->
+            <rect x="105" y="115" width="110" height="45" fill="#1e293b" stroke="#334155" stroke-width="3"/>
+            
+            <!-- Vintage CRT Monitor Terminal (Glowing Phosphor Green) -->
+            <rect x="125" y="65" width="70" height="50" rx="3" fill="#0f172a" stroke="#475569" stroke-width="3"/>
+            <rect x="131" y="70" width="58" height="38" fill="#021a0d" stroke="#16a34a" stroke-width="2"/>
+            <!-- Terminal Text / Phosphor Beam -->
+            <rect x="135" y="74" width="28" height="3" fill="#39ff14"/>
+            <rect x="135" y="80" width="40" height="2" fill="#22c55e"/>
+            <rect x="135" y="85" width="20" height="2" fill="#22c55e"/>
+            <!-- Blinking cursor -->
+            <rect x="135" y="92" width="6" height="6" fill="#39ff14" class="animate-pulse"/>
+
+            <!-- Red Incident Folder Dossier on Desk -->
+            <rect x="110" y="125" width="24" height="16" fill="#7f1d1d" stroke="#450a0a" stroke-width="1"/>
+            <text x="112" y="135" fill="#fecaca" font-family="'VT323', monospace" font-size="8">P-0</text>
+          </svg>
+        `,
+        hotspots: [
+          { id: "clock", label: "FROZEN_CLOCK", x: 50, y: 22, icon: "fa-clock" },
+          { id: "dossier", label: "PROJECT_0_DOSSIER", x: 37, y: 72, icon: "fa-folder-closed" },
+          { id: "terminal", label: "MAINFRAME_CLI", x: 50, y: 52, icon: "fa-terminal" }
+        ]
+      }
+    ];
+
+    /* ==========================================================================
+       3. RETRO GAME ENGINE CONTROLLER
+       ========================================================================== */
+    class RetroEscapeGame {
+      constructor() {
+        this.currentRoom = 0;
+        this.inventory = [];
+        this.notebook = [];
+        this.hintsUnlocked = 0;
+        this.startTime = Date.now();
+        this.isGateUnlocked = false;
+        this.isLockerUnlocked = false;
+        this.keypadCode = "";
+        this.dials = [0, 0, 0];
+        this.scanlinesEnabled = true;
+
+        this.bindGlobalEvents();
+        this.renderInventory();
+        this.renderRoom(0);
+      }
+
+      bindGlobalEvents() {
+        // Audio Toggle
+        document.getElementById('btn-toggle-audio').addEventListener('click', () => {
+          const muted = sfx.toggleAudio();
+          document.getElementById('audio-icon').className = muted
+            ? 'fa-solid fa-volume-xmark text-red-400'
+            : 'fa-solid fa-volume-high text-emerald-400';
+          document.getElementById('audio-label').textContent = muted ? 'SND: OFF' : 'SND: ON';
+          document.getElementById('audio-hint-box').style.display = 'none';
+        });
+
+        // Click anywhere wakes sound engine once
+        window.addEventListener('click', () => {
+          if (!sfx.ctx) {
+            sfx.init();
+            sfx.toggleAudio();
+            document.getElementById('audio-icon').className = 'fa-solid fa-volume-high text-emerald-400';
+            document.getElementById('audio-label').textContent = 'SND: ON';
+            document.getElementById('audio-hint-box').style.display = 'none';
+          }
+        }, { once: true });
+
+        // CRT Scanline Toggle
+        document.getElementById('btn-toggle-scanlines').addEventListener('click', () => {
+          sfx.playBlip(750);
+          this.scanlinesEnabled = !this.scanlinesEnabled;
+          const overlay = document.getElementById('crt-overlay');
+          const label = document.getElementById('scanlines-label');
+          if (this.scanlinesEnabled) {
+            overlay.classList.remove('hidden');
+            label.textContent = 'CRT: ON';
+          } else {
+            overlay.classList.add('hidden');
+            label.textContent = 'CRT: OFF';
+          }
+          this.showToast(this.scanlinesEnabled ? "CRT SCANLINES ACTIVATED" : "CRT SCANLINES DISABLED");
+        });
+
+        // Restart
+        document.getElementById('btn-restart').addEventListener('click', () => {
+          sfx.playBlip(400);
+          this.resetMission();
+        });
+
+        // Replay from victory screen
+        document.getElementById('btn-replay').addEventListener('click', () => {
+          sfx.playBlip(600);
+          document.getElementById('ending-screen').classList.add('hidden');
+          this.resetMission();
+        });
+
+        // Modal Close
+        document.getElementById('btn-modal-close').addEventListener('click', () => {
+          sfx.playBlip(500);
+          this.closeModal();
+        });
+
+        // Close on ESC
+        window.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape') {
+            this.closeModal();
+            this.closeNotebook();
+            this.closeHints();
+          }
+        });
+
+        // Notebook
+        document.getElementById('btn-open-notebook').addEventListener('click', () => {
+          sfx.playBlip(650);
+          this.openNotebook();
+        });
+        document.getElementById('btn-close-notebook').addEventListener('click', () => {
+          sfx.playBlip(500);
+          this.closeNotebook();
+        });
+
+        // Hints
+        document.getElementById('btn-open-hints').addEventListener('click', () => {
+          sfx.playBlip(650);
+          this.openHints();
+        });
+        document.getElementById('btn-close-hints').addEventListener('click', () => {
+          sfx.playBlip(500);
+          this.closeHints();
+        });
+        document.getElementById('btn-reveal-hint').addEventListener('click', () => {
+          this.revealHint();
+        });
+      }
+
+      resetMission() {
+        this.currentRoom = 0;
+        this.inventory = [];
+        this.notebook = [];
+        this.hintsUnlocked = 0;
+        this.startTime = Date.now();
+        this.isGateUnlocked = false;
+        this.isLockerUnlocked = false;
+        this.keypadCode = "";
+        this.dials = [0, 0, 0];
+        this.renderInventory();
+        this.renderNotebook();
+        this.updateHintBadge();
+        this.renderRoom(0);
+        this.showToast("SYSTEM HARD RESET TO STAGE 01");
+      }
+
+      showToast(text) {
+        const toast = document.getElementById('pixel-toast');
+        document.getElementById('pixel-toast-text').textContent = text;
+        toast.style.opacity = '1';
+        clearTimeout(this.toastTimer);
+        this.toastTimer = setTimeout(() => {
+          toast.style.opacity = '0';
+        }, 2600);
+      }
+
+      addLog(entry) {
+        if (!this.notebook.includes(entry)) {
+          this.notebook.push(entry);
+          this.renderNotebook();
+          this.showToast("EVIDENCE RECORDED TO NOTEBOOK");
+          document.getElementById('notebook-badge').classList.remove('hidden');
+        }
+      }
+
+      addItem(item) {
+        if (!this.inventory.some(i => i.id === item.id)) {
+          this.inventory.push(item);
+          sfx.playVictoryFanfare();
+          this.renderInventory();
+          this.showToast(`ACQUIRED: [${item.name}]`);
+        }
+      }
+
+      renderInventory() {
+        const slots = document.querySelectorAll('.inventory-slot');
+        slots.forEach((slot, idx) => {
+          const item = this.inventory[idx];
+          if (item) {
+            slot.innerHTML = `<i class="${item.icon} text-amber-400 text-lg"></i>`;
+            slot.className = 'inventory-slot w-11 h-11 sm:w-12 sm:h-12 bg-[#121c2a] border-2 border-amber-500 flex items-center justify-center cursor-pointer shadow-md hover:border-amber-300';
+            slot.title = `[${item.name}] - Click to examine`;
+            slot.onclick = () => {
+              sfx.playBlip(700);
+              this.inspectItem(item);
+            };
+          } else {
+            slot.innerHTML = `<span class="text-gray-700 font-pixel text-[8px]">0${idx+1}</span>`;
+            slot.className = 'inventory-slot w-11 h-11 sm:w-12 sm:h-12 bg-[#0d131d] border-2 border-gray-700 flex items-center justify-center cursor-pointer';
+            slot.onclick = null;
+            slot.title = "Empty slot";
+          }
+        });
+      }
+
+      inspectItem(item) {
+        this.openModal(
+          `EVIDENCE: ${item.name}`,
+          `
+            <div class="text-center space-y-3">
+              <div class="p-4 bg-black border-2 border-amber-500 inline-block text-amber-400 text-3xl">
+                <i class="${item.icon}"></i>
+              </div>
+              <h3 class="font-pixel text-xs text-amber-300">${item.name}</h3>
+              <p class="font-terminal text-lg text-gray-300 bg-[#090d14] p-3 border border-gray-800 text-left">
+                ${item.desc}
+              </p>
+            </div>
+          `,
+          "ITEM SECURED IN INVENTORY TRAY"
+        );
+      }
+
+      renderRoom(idx) {
+        this.currentRoom = idx;
+        const data = ROOM_DATA[idx];
+
+        // Update HUD
+        document.getElementById('hud-room-name').textContent = data.name;
+        document.getElementById('hud-stage-badge').textContent = data.badge;
+        document.getElementById('hud-objective-text').textContent = data.objective;
+
+        // Render SVG
+        document.getElementById('room-viewport').innerHTML = data.svg;
+
+        // Render Hotspots
+        const layer = document.getElementById('hotspots-layer');
+        layer.innerHTML = "";
+
+        data.hotspots.forEach(spot => {
+          const btn = document.createElement('button');
+          btn.className = 'absolute -translate-x-1/2 -translate-y-1/2 group flex items-center justify-center w-8 h-8 sm:w-9 sm:h-9 bg-black/85 border-2 border-amber-400 text-amber-300 font-pixel text-[10px] cursor-pointer hover:border-emerald-400 hover:text-emerald-400 z-20 blink-hotspot shadow-lg';
+          btn.style.left = `${spot.x}%`;
+          btn.style.top = `${spot.y}%`;
+          btn.innerHTML = `[?]`;
+
+          // Tooltip
+          const tip = document.createElement('span');
+          tip.className = 'absolute bottom-full mb-1 hidden group-hover:block whitespace-nowrap bg-black text-amber-300 font-pixel text-[8px] px-2 py-1 border border-amber-500 pointer-events-none z-30 shadow-2xl';
+          tip.textContent = spot.label;
+          btn.appendChild(tip);
+
+          btn.addEventListener('click', () => {
+            sfx.playBlip(800);
+            this.handleHotspot(spot.id);
+          });
+
+          layer.appendChild(btn);
+        });
+
+        // If Room 1 gate is already open, show gateway button
+        if (idx === 0 && this.isGateUnlocked) {
+          this.renderGatePassageButton();
+        }
+      }
+
+      handleHotspot(id) {
+        switch (id) {
+          // ROOM 1
+          case "noticeboard":
+            this.openNoticeboardModal();
+            break;
+          case "register":
+            this.openRegisterModal();
+            break;
+          case "gate_keypad":
+            this.openKeypadModal();
+            break;
+
+          // ROOM 2
+          case "schedule":
+            this.openScheduleModal();
+            break;
+          case "locker_204":
+            this.openLockerModal();
+            break;
+          case "bulkhead_door":
+            this.openBulkheadModal();
+            break;
+
+          // ROOM 3
+          case "clock":
+            this.openClockModal();
+            break;
+          case "dossier":
+            this.openDossierModal();
+            break;
+          case "terminal":
+            this.openTerminalModal();
+            break;
+        }
+      }
+
+      /* ==========================================================================
+         4. MODAL DIALOGS & PUZZLE INTERACTIONS
+         ========================================================================== */
+      openModal(title, bodyHTML, statusMsg = "PRESS [X] OR ESC TO CLOSE") {
+        document.getElementById('modal-title').textContent = `> ${title}`;
+        document.getElementById('modal-content').innerHTML = bodyHTML;
+        document.getElementById('modal-status-msg').textContent = `> ${statusMsg}`;
+        document.getElementById('modal-container').classList.remove('hidden');
+      }
+
+      closeModal() {
+        document.getElementById('modal-container').classList.add('hidden');
+      }
+
+      // --- Room 1: Bulletin Board ---
+      openNoticeboardModal() {
+        this.addLog("BULLETIN MEMO: Clearance granted for Inspector Vance on Nov 14th inspection.");
+        const html = `
+          <div class="space-y-3 font-terminal text-lg">
+            <div class="p-3 bg-[#1e150d] border-2 border-[#57391c] text-[#f7e6ca]">
+              <p class="font-pixel text-[9px] text-amber-400 mb-2 border-b border-[#57391c] pb-1">
+                FACILITY DIRECTIVE // DATE: NOV 14
+              </p>
+              <p>&gt; ATTN NIGHT DISPATCH:</p>
+              <p class="mt-1">
+                Only auditor <span class="text-amber-300 font-bold underline">A. VANCE</span> holds security clearance for tonight's audit of the sealed East Wing corridor.
+              </p>
+              <p class="text-xs text-gray-400 mt-2">
+                * Note: Inspect visitor registry for Vance's assigned gate code.
+              </p>
+            </div>
+            <p class="text-red-400 text-sm font-pixel text-[8px]">
+              ! TORN NEWSPAPER SNIPPET: "CAMPUS GENERATOR MYSTERIOUSLY CYCLES OFF AT 11:47 PM EVERY NIGHT."
+            </p>
+          </div>
+        `;
+        this.openModal("CAMPUS_BULLETIN_BOARD", html, "LOGS RECORDED IN DOSSIER");
+      }
+
+      // --- Room 1: Visitor Register ---
+      openRegisterModal() {
+        this.addLog("VISITOR LOG: Vance sign-in on Nov 14 lists Gate Passcode: [492] & Locker #204.");
+        const html = `
+          <div class="space-y-3 font-terminal text-lg">
+            <div class="p-3 bg-[#ded1b8] text-[#24170d] border-2 border-[#5c3e21]">
+              <p class="font-pixel text-[9px] text-[#24170d] border-b-2 border-[#5c3e21] pb-1 text-center font-bold">
+                CAMPUS ENTRANCE LOGBOOK // WEEK 46
+              </p>
+              <div class="my-2 space-y-1 text-sm sm:text-base">
+                <div class="flex justify-between line-through text-gray-500">
+                  <span>NOV 12 - DR. E. MILLER</span>
+                  <span>[REVOKED]</span>
+                </div>
+                <div class="flex justify-between line-through text-gray-500">
+                  <span>NOV 13 - POWER ENGINEER</span>
+                  <span>[CANCELLED]</span>
+                </div>
+                <div class="flex justify-between bg-amber-300/80 p-1 font-bold text-red-950 font-pixel text-[9px]">
+                  <span>NOV 14 - A. VANCE</span>
+                  <span>CODE: [ 4 9 2 ]</span>
+                </div>
+              </div>
+              <p class="font-pixel text-[8px] text-[#52371c] mt-2 italic">
+                * MARGIN NOTE: "Locker #204 allocated to Auditor Vance."
+              </p>
+            </div>
+          </div>
+        `;
+        this.openModal("GUEST_SIGNIN_REGISTRY", html, "CODE [492] IDENTIFIED");
+      }
+
+      // --- Room 1: Digital Gate Keypad Puzzle ---
+      openKeypadModal() {
+        if (this.isGateUnlocked) {
+          const html = `
+            <div class="text-center py-4 space-y-3">
+              <i class="fa-solid fa-lock-open text-emerald-400 text-4xl glow-green"></i>
+              <p class="font-pixel text-xs text-emerald-400">CORRIDOR GATE UNLOCKED</p>
+              <p class="font-terminal text-lg text-gray-300">The heavy iron bars have retracted.</p>
+              <button id="btn-enter-room-2" class="pixel-btn px-4 py-2 text-xs text-emerald-300 bg-emerald-950 border-emerald-600">
+                PROCEED TO LOCKER ROW &gt;&gt;
+              </button>
+            </div>
+          `;
+          this.openModal("GATE_KEYPAD [STATUS: OPEN]", html);
+          setTimeout(() => {
+            const btn = document.getElementById('btn-enter-room-2');
+            if (btn) btn.onclick = () => {
+              this.closeModal();
+              sfx.playDoorBurst();
+              this.renderRoom(1);
+            };
+          }, 30);
+          return;
+        }
+
+        this.keypadCode = "";
+        const html = `
+          <div class="flex flex-col items-center select-none space-y-3">
+            <div class="bg-black border-2 border-red-700 px-6 py-2 text-center w-48">
+              <span class="block font-pixel text-[7px] text-red-500 mb-1">ENTER 3-DIGIT PASSCODE</span>
+              <span id="kp-display" class="font-pixel text-xl tracking-widest text-red-400 glow-red">_ _ _</span>
+            </div>
+
+            <!-- 3x4 Pixel Keypad -->
+            <div class="grid grid-cols-3 gap-2 w-48 font-pixel text-xs">
+              ${[1, 2, 3, 4, 5, 6, 7, 8, 9].map(n => `
+                <button class="kp-btn pixel-btn py-2 text-gray-200" data-val="${n}">${n}</button>
+              `).join('')}
+              <button id="kp-clr" class="pixel-btn py-2 text-red-400 bg-red-950 text-[8px]">CLR</button>
+              <button class="kp-btn pixel-btn py-2 text-gray-200" data-val="0">0</button>
+              <button id="kp-ent" class="pixel-btn py-2 text-emerald-400 bg-emerald-950 text-[8px]">ENT</button>
+            </div>
+          </div>
+        `;
+        this.openModal("SECURITY_GATE_KEYPAD", html, "INPUT 3-DIGIT CODE");
+
+        setTimeout(() => {
+          document.querySelectorAll('.kp-btn').forEach(btn => {
+            btn.onclick = () => {
+              sfx.playBlip(950);
+              if (this.keypadCode.length < 3) {
+                this.keypadCode += btn.dataset.val;
+                this.updateKpDisplay();
+              }
+            };
+          });
+
+          document.getElementById('kp-clr').onclick = () => {
+            sfx.playBlip(450);
+            this.keypadCode = "";
+            this.updateKpDisplay();
+          };
+
+          document.getElementById('kp-ent').onclick = () => {
+            if (this.keypadCode === "492") {
+              this.isGateUnlocked = true;
+              sfx.playVictoryFanfare();
+              sfx.playDoorBurst();
+              this.showToast("GATE LATCH RELEASED");
+              this.addLog("GATE KEYPAD: Unlocked with code 492.");
+              this.openKeypadModal();
+              this.renderGatePassageButton();
+            } else {
+              sfx.playError();
+              const win = document.getElementById('modal-window');
+              win.classList.add('pixel-shake');
+              setTimeout(() => win.classList.remove('pixel-shake'), 300);
+              this.keypadCode = "";
+              this.updateKpDisplay("ERR");
+              setTimeout(() => this.updateKpDisplay(), 800);
+            }
+          };
+        }, 30);
+      }
+
+      updateKpDisplay(textOverride = null) {
+        const d = document.getElementById('kp-display');
+        if (!d) return;
+        if (textOverride) {
+          d.textContent = textOverride;
+          return;
+        }
+        let txt = this.keypadCode;
+        while (txt.length < 3) txt += "_";
+        d.textContent = txt.split('').join(' ');
+      }
+
+      renderGatePassageButton() {
+        const layer = document.getElementById('hotspots-layer');
+        if (document.getElementById('pass-btn')) return;
+        const btn = document.createElement('button');
+        btn.id = 'pass-btn';
+        btn.className = 'absolute pixel-btn px-3 py-1.5 text-emerald-300 bg-emerald-950 border-emerald-500 font-pixel text-[9px] -translate-x-1/2 z-30 animate-pulse';
+        btn.style.left = '50%';
+        btn.style.top = '78%';
+        btn.textContent = "[ ENTER LOCKER ROW >> ]";
+        btn.onclick = () => {
+          sfx.playDoorBurst();
+          this.renderRoom(1);
+        };
+        layer.appendChild(btn);
+      }
+
+      // --- Room 2: Torn Schedule ---
+      openScheduleModal() {
+        this.addLog("SCHEDULE: Chemistry (Pd 7), Calculus (Pd 3), Physics Lab (Pd 8) -> Locker #204 Code: 7-3-8.");
+        const html = `
+          <div class="space-y-3 font-terminal text-lg">
+            <div class="p-3 bg-[#ded1b8] text-[#291a0e] border-2 border-[#5c3e21]">
+              <p class="font-pixel text-[9px] text-[#291a0e] border-b-2 border-[#5c3e21] pb-1 font-bold">
+                AUDITOR LAB ALLOCATION SCHEDULE
+              </p>
+              <p class="text-sm mt-1">&gt; Combination Lock Sequence Protocol:</p>
+              <div class="my-2 bg-[#c9b79b] p-2 border border-[#806544] font-mono text-xs space-y-1">
+                <p>1st Dial: Chemistry Hall ---&gt; <strong>Period 7</strong></p>
+                <p>2nd Dial: Calculus Lab ------&gt; <strong>Period 3</strong></p>
+                <p>3rd Dial: Physics Testing ---&gt; <strong>Period 8</strong></p>
+              </div>
+              <p class="font-pixel text-[8px] text-red-900 font-bold">
+                * TUMBLER PATTERN FOR LOCKER #204: 7 - 3 - 8
+              </p>
+            </div>
+          </div>
+        `;
+        this.openModal("TORN_CLASS_SCHEDULE", html, "TUMBLER SEQUENCE DISCOVERED");
+      }
+
+      // --- Room 2: Locker #204 Rotary Tumbler Puzzle ---
+      openLockerModal() {
+        if (this.isLockerUnlocked) {
+          const html = `
+            <div class="text-center py-4 space-y-3">
+              <i class="fa-solid fa-box-open text-amber-400 text-4xl"></i>
+              <p class="font-pixel text-xs text-amber-300">LOCKER #204 OPEN</p>
+              <p class="font-terminal text-lg text-gray-300">Master Keycard and Polaroid were retrieved.</p>
+            </div>
+          `;
+          this.openModal("LOCKER_204 [EMPTY]", html);
+          return;
+        }
+
+        const html = `
+          <div class="flex flex-col items-center select-none space-y-4">
+            <p class="font-pixel text-[8px] text-gray-400 text-center">
+              ROTATE BRASS TUMBLERS TO TARGET SEQUENCE
+            </p>
+
+            <div class="flex items-center space-x-3 bg-black p-4 border-2 border-amber-600">
+              ${[0, 1, 2].map(idx => `
+                <div class="flex flex-col items-center">
+                  <button class="dial-btn pixel-btn p-1 mb-1 text-amber-400" data-idx="${idx}" data-dir="up">▲</button>
+                  <div id="dial-${idx}" class="w-10 h-14 bg-[#1a1208] border-2 border-amber-500 flex items-center justify-center font-pixel text-lg text-amber-300 glow-amber">
+                    ${this.dials[idx]}
+                  </div>
+                  <button class="dial-btn pixel-btn p-1 mt-1 text-amber-400" data-idx="${idx}" data-dir="down">▼</button>
+                </div>
+              `).join('')}
+            </div>
+
+            <button id="btn-unlock-locker" class="pixel-btn px-4 py-2 text-xs text-amber-300 bg-amber-950 border-amber-600">
+              [ ROTATE RELEASE LATCH ]
+            </button>
+          </div>
+        `;
+        this.openModal("LOCKER_204_TUMBLER_LOCK", html, "SET 3 DIALS");
+
+        setTimeout(() => {
+          document.querySelectorAll('.dial-btn').forEach(btn => {
+            btn.onclick = () => {
+              const idx = parseInt(btn.dataset.idx);
+              const dir = btn.dataset.dir;
+              sfx.playDialClick();
+              if (dir === 'up') {
+                this.dials[idx] = (this.dials[idx] + 1) % 10;
+              } else {
+                this.dials[idx] = (this.dials[idx] + 9) % 10;
+              }
+              document.getElementById(`dial-${idx}`).textContent = this.dials[idx];
+            };
+          });
+
+          document.getElementById('btn-unlock-locker').onclick = () => {
+            if (this.dials[0] === 7 && this.dials[1] === 3 && this.dials[2] === 8) {
+              this.isLockerUnlocked = true;
+              sfx.playVictoryFanfare();
+              this.addItem({
+                id: "keycard",
+                name: "MASTER_KEYCARD",
+                icon: "fa-id-card",
+                desc: "Magnetic high-clearance keycard stamped: SECTOR C ARCHIVE ACCESS."
+              });
+              this.addItem({
+                id: "polaroid",
+                name: "TORN_POLAROID",
+                icon: "fa-image",
+                desc: "Faded instant photo of the archive wall clock frozen at 11:47 PM. Written: 'The final hour of containment.'"
+              });
+              this.addLog("LOCKER 204: Retrieved Master Keycard and 11:47 timestamp photograph.");
+              this.openLockerModal();
+            } else {
+              sfx.playError();
+              const win = document.getElementById('modal-window');
+              win.classList.add('pixel-shake');
+              setTimeout(() => win.classList.remove('pixel-shake'), 300);
+              this.showToast("TUMBLERS RESIST - WRONG PATTERN");
+            }
+          };
+        }, 30);
+      }
+
+      // --- Room 2: Bulkhead Security Door ---
+      openBulkheadModal() {
+        const hasCard = this.inventory.some(i => i.id === 'keycard');
+        if (!hasCard) {
+          sfx.playError();
+          const html = `
+            <div class="text-center py-4 space-y-3">
+              <i class="fa-solid fa-lock text-red-500 text-4xl glow-red"></i>
+              <p class="font-pixel text-xs text-red-400">ACCESS RESTRICTED: KEYCARD REQUIRED</p>
+              <p class="font-terminal text-lg text-gray-300">
+                The magnetic scanner LED blinks red: "INSERT MASTER KEYCARD TO RELEASE BULKHEAD."
+              </p>
+            </div>
+          `;
+          this.openModal("BULKHEAD_SCANNER [LOCKED]", html);
+          return;
+        }
+
+        const html = `
+          <div class="text-center py-4 space-y-4">
+            <i class="fa-solid fa-shield-halved text-emerald-400 text-4xl glow-green"></i>
+            <h4 class="font-pixel text-xs text-emerald-300">SWIPE MASTER KEYCARD</h4>
+            <p class="font-terminal text-lg text-gray-300">
+              Keycard validated in Evidence Tray. Swipe card through reader?
+            </p>
+            <button id="btn-swipe-card" class="pixel-btn px-4 py-2 text-xs text-emerald-300 bg-emerald-950 border-emerald-500">
+              [ SWIPE KEYCARD &amp; RELEASE BULKHEAD ]
+            </button>
+          </div>
+        `;
+        this.openModal("BULKHEAD_SCANNER", html, "SWIPE TO OPEN");
+
+        setTimeout(() => {
+          document.getElementById('btn-swipe-card').onclick = () => {
+            sfx.playDoorBurst();
+            this.showToast("MAGNETIC LOCK RELEASED - ENTERING ARCHIVE");
+            this.closeModal();
+            this.renderRoom(2); // Room 3
+          };
+        }, 30);
+      }
+
+      // --- Room 3: Clock ---
+      openClockModal() {
+        this.addLog("WALL CLOCK: Hands locked permanently at 11:47 PM. Inscribed: 'The Final Hour'.");
+        const html = `
+          <div class="text-center space-y-3 font-terminal text-lg">
+            <div class="w-24 h-24 bg-amber-100 border-4 border-amber-950 rounded-full mx-auto flex items-center justify-center font-pixel text-sm text-black">
+              11:47
+            </div>
+            <h4 class="font-pixel text-xs text-amber-300">FROZEN PENDULUM CLOCK</h4>
+            <p class="bg-black p-3 border border-gray-800 text-gray-300">
+              The internal escapement mechanism melted into position. Both clock hands rest directly at <strong class="text-amber-400">11:47 PM</strong>.
+              <br><br>
+              <span class="text-red-400 text-sm font-pixel text-[8px] block">
+                ETCHED NOTICE: "PURGE SYSTEM AUTH CODE MATCHES THE TERMINATION MINUTE."
+              </span>
+            </p>
+          </div>
+        `;
+        this.openModal("ARCHIVE_WALL_CLOCK", html, "TIMESTAMP 11:47 CONFIRMED");
+      }
+
+      // --- Room 3: Dossier ---
+      openDossierModal() {
+        this.addLog("PROJECT ZERO FILE: Containment breach occurred at 11:47 PM. Purge PIN is 1147.");
+        const html = `
+          <div class="space-y-3 font-terminal text-lg">
+            <div class="p-3 bg-[#1e0a0a] border-2 border-red-800 text-red-200">
+              <p class="font-pixel text-[9px] text-red-400 border-b border-red-800 pb-1 font-bold">
+                CLASSIFIED INCIDENT DOSSIER: PROJECT ZERO
+              </p>
+              <p class="mt-2 text-base">
+                &gt; Resonance experiment failed inside sub-level vault at <strong>11:47 PM</strong>. Total facility lockdown automatically sealed the entire wing.
+              </p>
+              <p class="text-gray-400 text-sm mt-2">
+                &gt; To purge containment and unlock the perimeter blast doors, the user must input the 4-digit incident timestamp (1147) into the Mainframe terminal.
+              </p>
+            </div>
+          </div>
+        `;
+        this.openModal("PROJECT_ZERO_DOSSIER", html, "PURGE CODE IDENTIFIED");
+      }
+
+      // --- Room 3: Terminal CLI Puzzle (Finale) ---
+      openTerminalModal() {
+        const html = `
+          <div class="bg-black p-4 border-2 border-emerald-500 font-terminal text-emerald-400 space-y-3">
+            <p class="font-pixel text-[9px] text-emerald-300 border-b border-emerald-800 pb-1 text-center">
+              === SECTOR C ARCHIVE MAINFRAME ===
+            </p>
+            <div class="text-sm space-y-1">
+              <p>&gt; STATUS: QUARANTINE LOCKDOWN ACTIVE</p>
+              <p>&gt; BREACH REASON: ANOMALOUS EVENT @ 11:47 PM</p>
+              <p class="text-amber-400">&gt; INPUT 4-DIGIT PURGE PIN BELOW:</p>
+            </div>
+
+            <div class="flex justify-center my-3">
+              <input id="term-input" type="text" maxlength="4" placeholder="____" class="w-36 bg-[#03200f] border-2 border-emerald-400 text-center font-pixel text-lg text-emerald-300 py-1 tracking-widest focus:outline-none">
+            </div>
+
+            <button id="btn-term-purge" class="w-full pixel-btn py-2 text-xs text-black bg-emerald-500 hover:bg-emerald-400">
+              [ EXECUTE FACILITY PURGE ]
+            </button>
+          </div>
+        `;
+        this.openModal("MAINFRAME_TERMINAL_CLI", html, "ENTER 4-DIGIT CODE");
+
+        setTimeout(() => {
+          const inp = document.getElementById('term-input');
+          inp.focus();
+
+          document.getElementById('btn-term-purge').onclick = () => {
+            const val = inp.value.trim();
+            if (val === "1147") {
+              sfx.playVictoryFanfare();
+              this.closeModal();
+              this.triggerVictory();
+            } else {
+              sfx.playError();
+              const win = document.getElementById('modal-window');
+              win.classList.add('pixel-shake');
+              setTimeout(() => win.classList.remove('pixel-shake'), 300);
+              inp.value = "";
+              this.showToast("ACCESS DENIED: INCORRECT PIN");
+            }
+          };
+        }, 30);
+      }
+
+      /* ==========================================================================
+         5. VICTORY TRIGGER & NOTEBOOK/HINTS UI
+         ========================================================================== */
+      triggerVictory() {
+        sfx.playDoorBurst();
+        const screen = document.getElementById('ending-screen');
+        const elapsedSec = Math.floor((Date.now() - this.startTime) / 1000);
+        const m = Math.floor(elapsedSec / 60).toString().padStart(2, '0');
+        const s = (elapsedSec % 60).toString().padStart(2, '0');
+
+        document.getElementById('end-time').textContent = `${m}:${s}`;
+        document.getElementById('end-clues').textContent = `${this.notebook.length} / 6`;
+
+        let rank = "S-RANK";
+        if (this.hintsUnlocked > 1) rank = "A-RANK";
+        if (this.hintsUnlocked >= 3) rank = "B-RANK";
+        document.getElementById('end-rank').textContent = rank;
+
+        screen.classList.remove('hidden');
+      }
+
+      openNotebook() {
+        document.getElementById('notebook-badge').classList.add('hidden');
+        document.getElementById('notebook-modal').classList.remove('hidden');
+      }
+
+      closeNotebook() {
+        document.getElementById('notebook-modal').classList.add('hidden');
+      }
+
+      renderNotebook() {
+        const list = document.getElementById('notebook-list');
+        if (this.notebook.length === 0) {
+          list.innerHTML = `<p class="text-[#7d6547] italic">&gt; No logs recorded yet. Inspect marked coordinates in rooms.</p>`;
+          return;
+        }
+        list.innerHTML = this.notebook.map((item, idx) => `
+          <div class="border-b border-[#b39e7c] pb-1">
+            <span class="font-pixel text-[8px] text-[#52371c] font-bold">[ENTRY 0${idx+1}]</span>
+            <p class="text-sm font-terminal leading-tight text-[#291a0e]">${item}</p>
+          </div>
+        `).join('');
+      }
+
+      openHints() {
+        document.getElementById('hints-modal').classList.remove('hidden');
+        this.renderHints();
+      }
+
+      closeHints() {
+        document.getElementById('hints-modal').classList.add('hidden');
+      }
+
+      updateHintBadge() {
+        document.getElementById('hints-badge').textContent = `${this.hintsUnlocked}/3`;
+      }
+
+      revealHint() {
+        const room = ROOM_DATA[this.currentRoom];
+        if (this.hintsUnlocked < 3) {
+          this.hintsUnlocked++;
+          sfx.playBlip(900);
+          this.updateHintBadge();
+          this.renderHints();
+          this.showToast(`HINT TIER 0${this.hintsUnlocked} DECRYPTED`);
+        } else {
+          this.showToast("MAX HINT TIERS UNLOCKED");
+        }
+      }
+
+      renderHints() {
+        const room = ROOM_DATA[this.currentRoom];
+        const m1 = document.getElementById('hint-msg-1');
+        const m2 = document.getElementById('hint-msg-2');
+        const m3 = document.getElementById('hint-msg-3');
+
+        m1.textContent = this.hintsUnlocked >= 1 ? `> ${room.hints[0]}` : "LOCKED [REVEAL TO DECRYPT]";
+        m1.className = this.hintsUnlocked >= 1 ? "text-emerald-300 font-terminal text-base" : "text-gray-500 italic";
+
+        m2.textContent = this.hintsUnlocked >= 2 ? `> ${room.hints[1]}` : (this.hintsUnlocked === 1 ? "[READY FOR DECRYPTION]" : "LOCKED");
+        m2.className = this.hintsUnlocked >= 2 ? "text-emerald-300 font-terminal text-base" : "text-gray-500 italic";
+
+        m3.textContent = this.hintsUnlocked >= 3 ? `> ${room.hints[2]}` : (this.hintsUnlocked === 2 ? "[READY FOR DECRYPTION]" : "LOCKED");
+        m3.className = this.hintsUnlocked >= 3 ? "text-amber-400 font-terminal text-base font-bold" : "text-gray-500 italic";
+      }
+    }
+
+    // Launch game when window is loaded
+    window.onload = function() {
+      window.game = new RetroEscapeGame();
+    };
+  </script>
+</body>
+</html>

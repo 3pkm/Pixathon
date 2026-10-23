@@ -1,0 +1,694 @@
+/* =============================================================================
+   ESCAPE PROTOCOL: HORROR & NOIR VISUAL STYLING ENGINE
+   File: horror_noir_theme.css
+   Aesthetic Influences:
+     1. Abandoned College Gothic Horror (Grimy classrooms, overturned desks, blood)
+     2. Dusty Crimson Darkroom (Deep red safelights, hanging polaroids, chemical trays)
+     3. 90s Graphic Novel Film Noir (Venetian blind slatted shadows, banker's lamp, typewriter)
+   ============================================================================= */
+
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Bangers&family=Press+Start+2P&family=VT323&display=swap');
+
+:root {
+  /* ==========================================
+     1. CRIMSON DARKROOM PALETTE
+     ========================================== */
+  --crimson-glow: #ff2a2a;
+  --crimson-bright: #ff4747;
+  --darkroom-red: #8b0000;
+  --darkroom-deep: #470000;
+  --darkroom-shadow: #140204;
+  --darkroom-ambient: rgba(255, 42, 42, 0.16);
+  --safelight-tube: #ff1a1a;
+  --chemical-amber: #e09f3e;
+  --chemical-fixer: #4a6d88;
+  --photopaper-base: #f7f2e7;
+
+  /* ==========================================
+     2. 90s FILM NOIR & GRAPHIC NOVEL PALETTE
+     ========================================== */
+  --noir-void: #07090e;
+  --noir-charcoal: #11141c;
+  --noir-slate: #1c222e;
+  --noir-paper: #ded5bf;
+  --noir-ink: #000000;
+  --banker-green: #0f5132;
+  --banker-glass: #28a745;
+  --banker-glow: rgba(40, 167, 69, 0.65);
+  --typewriter-ink: #2b261f;
+  --venetian-slat: rgba(0, 0, 0, 0.76);
+  --venetian-beam: rgba(255, 240, 200, 0.14);
+
+  /* ==========================================
+     3. ABANDONED HORROR DECALS & GRIME
+     ========================================== */
+  --blood-fresh: #b31010;
+  --blood-coagulated: #5c0808;
+  --rust-metal: #6b3e20;
+  --toxic-slime: #447733;
+  --chalk-dust: #e4e6eb;
+
+  /* ==========================================
+     4. GRAPHIC NOVEL INK & STROKE ENGINE
+     ========================================== */
+  --comic-border-w: 3px;
+  --comic-shadow-offset: 4px;
+  --font-typewriter: 'Special Elite', 'Courier Prime', monospace;
+  --font-comic-heading: 'Bangers', 'Press Start 2P', cursive;
+}
+
+/* =============================================================================
+   GLOBAL CRAFTSMANSHIP & ACCESSIBILITY GUARDRAILS
+   ============================================================================= */
+html, body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Tabular numbers prevent jitter in countdowns and clocks */
+.tabular-nums, .stat-timer, .hud-counter, .clock-display {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Micro "Press" Physics for tactile responsiveness */
+button, .interactive-card, .clickable-hotspot, .tray-container, .polaroid-card {
+  transition: transform 75ms ease, box-shadow 75ms ease, filter 120ms ease;
+}
+
+button:active, .interactive-card:active {
+  transform: scale(0.975) translateY(1px);
+}
+
+/* Accessible focus outline (never outline: none without fallback) */
+button:focus-visible, a:focus-visible, input:focus-visible, .interactive-card:focus-visible {
+  outline: 3px solid var(--crimson-glow);
+  outline-offset: 3px;
+  box-shadow: 0 0 12px rgba(255, 42, 42, 0.8) !important;
+}
+
+button:focus:not(:focus-visible), a:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Image stability - layout shift prevention */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =============================================================================
+   MODE 1: CRIMSON DARKROOM MODE (Photo Lab Safe-Lamp Aesthetic)
+   Directly mimics 'Dusty Photo Darkroom Crimson Glow Wallpaper.jpeg'
+   ============================================================================= */
+.darkroom-mode-active {
+  background-color: var(--darkroom-shadow) !important;
+  color: #ff9999 !important;
+  transition: background-color 0.5s ease;
+}
+
+.darkroom-crimson-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 25%,
+    rgba(255, 30, 30, 0.28) 0%,
+    rgba(139, 0, 0, 0.45) 55%,
+    rgba(20, 2, 4, 0.88) 100%
+  );
+  mix-blend-mode: multiply;
+  z-index: 25;
+}
+
+/* Glowing Crimson Fluorescent Safe Lamp Fixture */
+.safelight-fixture {
+  position: relative;
+  background: linear-gradient(180deg, #1f0305 0%, #080001 100%);
+  border: 3px solid #000;
+  border-bottom: 4px solid var(--crimson-glow);
+  box-shadow:
+    0 10px 30px rgba(255, 42, 42, 0.7),
+    0 2px 6px rgba(255, 42, 42, 0.9),
+    inset 0 0 10px rgba(255, 42, 42, 0.5);
+}
+
+.safelight-tube {
+  height: 8px;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow:
+    0 0 12px #ff2a2a,
+    0 0 25px #ff0000,
+    0 0 40px #ff0000;
+  animation: safelightHum 4s ease-in-out infinite alternate;
+}
+
+@keyframes safelightHum {
+  0% { opacity: 0.92; filter: drop-shadow(0 0 8px #ff2a2a); }
+  50% { opacity: 1; filter: drop-shadow(0 0 16px #ff0000); }
+  100% { opacity: 0.88; filter: drop-shadow(0 0 10px #ff2a2a); }
+}
+
+/* =============================================================================
+   MODE 2: 90s DETECTIVE FILM NOIR MODE & VENETIAN BLINDS
+   Directly mimics 'NOIR CONFESSION - Daniil Suponitskiy.gif'
+   ============================================================================= */
+.noir-slanted-blinds {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    -38deg,
+    transparent,
+    transparent 20px,
+    var(--venetian-slat) 20px,
+    var(--venetian-slat) 42px
+  );
+  opacity: 0.85;
+  mix-blend-mode: multiply;
+  z-index: 20;
+  animation: venetianBreathe 8s ease-in-out infinite alternate;
+}
+
+@keyframes venetianBreathe {
+  0% {
+    opacity: 0.78;
+    background-position: 0px 0px;
+  }
+  50% {
+    opacity: 0.88;
+    background-position: 8px 4px;
+  }
+  100% {
+    opacity: 0.82;
+    background-position: -4px -2px;
+  }
+}
+
+/* Vintage Green Banker's Desk Lamp Glow */
+.bankers-lamp-cone {
+  position: absolute;
+  pointer-events: none;
+  width: 260px;
+  height: 220px;
+  background: radial-gradient(
+    ellipse at top center,
+    rgba(40, 167, 69, 0.45) 0%,
+    rgba(15, 81, 50, 0.22) 45%,
+    transparent 75%
+  );
+  filter: blur(10px);
+  z-index: 12;
+}
+
+/* Cigarette Smoke Wisps (Noir Office) */
+.smoke-column {
+  position: absolute;
+  width: 14px;
+  height: 80px;
+  pointer-events: none;
+  background: linear-gradient(
+    to top,
+    rgba(220, 220, 220, 0.5) 0%,
+    rgba(180, 180, 180, 0.25) 50%,
+    transparent 100%
+  );
+  filter: blur(4px);
+  border-radius: 50%;
+  animation: smokeRise 3.5s ease-out infinite;
+  transform-origin: bottom center;
+}
+
+@keyframes smokeRise {
+  0% {
+    transform: translateY(0) scaleX(1) skewX(0deg);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-40px) scaleX(1.8) skewX(12deg);
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-90px) scaleX(2.6) skewX(-15deg);
+    opacity: 0;
+  }
+}
+
+/* =============================================================================
+   MODE 3: FLASHLIGHT CURSOR TRACKING (Pitch Black Rooms)
+   ============================================================================= */
+.flashlight-active {
+  cursor: crosshair;
+}
+
+.flashlight-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+  background: radial-gradient(
+    circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 248, 220, 0.08) 0%,
+    rgba(255, 225, 160, 0.02) 65%,
+    rgba(10, 12, 16, 0.88) 85%,
+    rgba(2, 3, 5, 0.98) 100%
+  );
+  transition: opacity 0.3s ease;
+}
+
+.flashlight-beam-core {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  top: calc(var(--mouse-y, 50%) - 160px);
+  left: calc(var(--mouse-x, 50%) - 160px);
+  pointer-events: none;
+  border-radius: 50%;
+  box-shadow: inset 0 0 50px rgba(255, 230, 150, 0.15);
+  animation: beamFlicker 6s steps(1) infinite;
+  z-index: 31;
+}
+
+@keyframes beamFlicker {
+  0%, 97%, 100% { opacity: 1; }
+  98% { opacity: 0.4; }
+  99% { opacity: 0.8; }
+}
+
+/* =============================================================================
+   GRAPHIC NOVEL / COMIC BOOK STYLIZED UI PANELS & DIALOGUES
+   ============================================================================= */
+.comic-panel {
+  position: relative;
+  background: var(--noir-charcoal);
+  border: var(--comic-border-w) solid var(--comic-ink);
+  box-shadow:
+    var(--comic-shadow-offset) var(--comic-shadow-offset) 0px #000000;
+  border-radius: 2px;
+}
+
+.comic-panel-crimson {
+  position: relative;
+  background: #190507;
+  border: 3px solid #000;
+  border-left: 6px solid var(--crimson-glow);
+  box-shadow: 4px 4px 0px #000, 0 0 15px rgba(255, 42, 42, 0.35);
+}
+
+.comic-panel-noir {
+  position: relative;
+  background: #141720;
+  border: 3px solid #000;
+  border-left: 6px solid var(--chemical-amber);
+  box-shadow: 4px 4px 0px #000;
+}
+
+/* Detective Internal Monologue Yellow Caption Box */
+.comic-caption-box {
+  background: #ffeaa7;
+  color: #1a1a1a;
+  border: 2px solid #000;
+  box-shadow: 3px 3px 0px #000;
+  padding: 6px 12px;
+  font-family: var(--font-typewriter);
+  font-size: 13px;
+  line-height: 1.4;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  font-weight: 700;
+}
+
+/* Speech Balloon with Directional Pointer */
+.comic-speech-bubble {
+  position: relative;
+  background: #ffffff;
+  color: #0b0e14;
+  border: 3px solid #000;
+  border-radius: 12px;
+  padding: 10px 14px;
+  font-family: var(--font-typewriter);
+  box-shadow: 4px 4px 0px #000;
+}
+
+.comic-speech-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -14px;
+  left: 24px;
+  border-width: 14px 12px 0 0;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
+  display: block;
+  width: 0;
+}
+
+.comic-speech-bubble::before {
+  content: '';
+  position: absolute;
+  bottom: -18px;
+  left: 22px;
+  border-width: 17px 15px 0 0;
+  border-style: solid;
+  border-color: #000000 transparent transparent transparent;
+  display: block;
+  width: 0;
+}
+
+/* Vintage 90s Halftone Screentone Overlay */
+.halftone-screentone {
+  background-image: radial-gradient(
+    circle,
+    rgba(0, 0, 0, 0.28) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 8px 8px;
+}
+
+/* =============================================================================
+   ABANDONED HORROR COLLEGE DECALS & ANIMATIONS
+   Directly mimics 'download (17).jpeg' (overturned desks, blood, scratch marks)
+   ============================================================================= */
+
+/* Dynamic Fluorescent Tube Flicker */
+.fluorescent-flicker {
+  animation: tubeSpasm 7s infinite ease;
+}
+
+@keyframes tubeSpasm {
+  0%, 19.99%, 22%, 62.99%, 64%, 64.99%, 70%, 100% {
+    opacity: 1;
+    filter: brightness(1);
+  }
+  20%, 21.99% {
+    opacity: 0.2;
+    filter: brightness(0.4);
+  }
+  63%, 63.99% {
+    opacity: 0.3;
+    filter: brightness(0.5);
+  }
+  65%, 69.99% {
+    opacity: 0.1;
+    filter: brightness(0.2);
+  }
+}
+
+/* Blood Stains & Splatters */
+.blood-decal {
+  position: absolute;
+  pointer-events: none;
+  filter: drop-shadow(1px 2px 2px rgba(0, 0, 0, 0.9));
+}
+
+.blood-drip {
+  position: absolute;
+  width: 4px;
+  height: 25px;
+  background: linear-gradient(180deg, var(--blood-fresh) 0%, var(--blood-coagulated) 100%);
+  border-radius: 0 0 3px 3px;
+  animation: bloodDrip 4s ease-in infinite;
+}
+
+@keyframes bloodDrip {
+  0% { height: 4px; opacity: 0.7; }
+  60% { height: 28px; opacity: 1; }
+  100% { height: 32px; opacity: 0.85; }
+}
+
+/* Rusty Metal Texture */
+.rust-metal-texture {
+  background-color: #2b1f1a;
+  background-image:
+    radial-gradient(ellipse at 20% 40%, rgba(139, 69, 19, 0.4) 0%, transparent 50%),
+    radial-gradient(ellipse at 70% 80%, rgba(100, 30, 20, 0.5) 0%, transparent 60%);
+  border: 3px solid #140d0a;
+}
+
+/* Grimy Chalkboard Texture */
+.classroom-blackboard {
+  background: #18241b;
+  box-shadow:
+    inset 0 0 30px rgba(0, 0, 0, 0.85),
+    inset 0 0 10px rgba(255, 255, 255, 0.05);
+  border: 8px solid #3c2415;
+  color: var(--chalk-dust);
+  font-family: var(--font-typewriter);
+}
+
+/* =============================================================================
+   INTERACTIVE DARKROOM CHEMICAL DEVELOPER TRAYS & PHOTO DRYING LINE
+   ============================================================================= */
+.darkroom-countertop {
+  background: #0f1016;
+  border-top: 4px solid #000;
+  box-shadow: inset 0 6px 15px rgba(0, 0, 0, 0.8);
+  padding: 16px;
+}
+
+.chemical-tray {
+  position: relative;
+  height: 140px;
+  border-radius: 4px;
+  border: 3px solid #000;
+  box-shadow:
+    inset 0 8px 16px rgba(0, 0, 0, 0.9),
+    0 4px 0px #000;
+  overflow: hidden;
+  cursor: pointer;
+  user-select: none;
+}
+
+.tray-developer {
+  background: #1a0e08;
+  border-top: 5px solid #a66a38;
+}
+
+.tray-stopbath {
+  background: #0f1821;
+  border-top: 5px solid #3488a6;
+}
+
+.tray-fixer {
+  background: #141c14;
+  border-top: 5px solid #4a9e5c;
+}
+
+.tray-liquid {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 70%;
+  opacity: 0.75;
+  mix-blend-mode: screen;
+  animation: liquidSlosh 5s ease-in-out infinite alternate;
+}
+
+@keyframes liquidSlosh {
+  0% { transform: scaleY(0.98) skewX(-1deg); }
+  50% { transform: scaleY(1.02) skewX(1deg); }
+  100% { transform: scaleY(0.99) skewX(-0.5deg); }
+}
+
+/* Twine Hanging Line with Clothespins */
+.twine-drying-wire {
+  position: relative;
+  height: 120px;
+  border-bottom: 2px dashed #6b583f;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  padding: 0 20px;
+}
+
+.polaroid-drying {
+  position: relative;
+  width: 90px;
+  background: #ffffff;
+  border: 2px solid #000;
+  box-shadow: 3px 3px 0px #000;
+  padding: 6px 6px 18px 6px;
+  transform-origin: top center;
+  animation: polaroidSway 6s ease-in-out infinite alternate;
+  cursor: zoom-in;
+}
+
+.polaroid-drying:nth-child(even) {
+  animation-duration: 7s;
+  animation-delay: -2s;
+}
+
+@keyframes polaroidSway {
+  0% { transform: rotate(-3deg); }
+  50% { transform: rotate(2deg); }
+  100% { transform: rotate(-2deg); }
+}
+
+.clothespin {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 20px;
+  background: #b5894b;
+  border: 1.5px solid #000;
+  border-radius: 2px;
+  z-index: 10;
+}
+
+/* Photo Developing Chemical Transition State */
+.developing-photo-sheet {
+  transition: filter 3s ease-in-out, opacity 2s ease-in-out;
+}
+
+.photo-undeveloped {
+  filter: brightness(0.2) contrast(0.5) blur(3px) sepia(0.8);
+  opacity: 0.3;
+}
+
+.photo-in-developer {
+  filter: brightness(0.6) contrast(1.1) blur(1px) sepia(0.5) hue-rotate(330deg);
+  opacity: 0.75;
+}
+
+.photo-developed {
+  filter: brightness(1) contrast(1.4) grayscale(0.85);
+  opacity: 1;
+}
+
+/* =============================================================================
+   INTERACTIVE LOUPE / MAGNIFYING GLASS WIDGET
+   ============================================================================= */
+.loupe-glass {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 6px solid #4a4a4a;
+  box-shadow:
+    0 0 0 3px #000,
+    inset 0 0 20px rgba(0, 0, 0, 0.7),
+    0 10px 25px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 40;
+  backdrop-filter: contrast(140%) brightness(120%);
+}
+
+.loupe-glare {
+  position: absolute;
+  top: 8px;
+  left: 14px;
+  width: 60px;
+  height: 30px;
+  border-radius: 50%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.4) 0%, transparent 100%);
+  transform: rotate(-30deg);
+}
+
+.loupe-reticle {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, transparent 49.5%, rgba(255, 42, 42, 0.5) 50%, transparent 50.5%),
+    linear-gradient(to bottom, transparent 49.5%, rgba(255, 42, 42, 0.5) 50%, transparent 50.5%);
+  pointer-events: none;
+}
+
+/* =============================================================================
+   BUTTONS & TACTILE CONTROLS (HORROR / NOIR THEMED)
+   ============================================================================= */
+.noir-btn {
+  font-family: var(--font-typewriter);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 16px;
+  background: #1c202a;
+  color: #ded5bf;
+  border: 3px solid #000;
+  box-shadow: 3px 3px 0px #000;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+.noir-btn:hover {
+  background: #2e3547;
+  color: #ffffff;
+}
+
+.noir-btn:active {
+  box-shadow: 1px 1px 0px #000;
+  transform: translate(2px, 2px);
+}
+
+.noir-btn-crimson {
+  background: #8b0000;
+  color: #fff;
+  border: 3px solid #000;
+  box-shadow: 3px 3px 0px #000, 0 0 10px rgba(255, 42, 42, 0.5);
+}
+
+.noir-btn-crimson:hover {
+  background: #b30000;
+  box-shadow: 3px 3px 0px #000, 0 0 16px rgba(255, 42, 42, 0.8);
+}
+
+.noir-btn-amber {
+  background: #995c00;
+  color: #fff;
+  border: 3px solid #000;
+  box-shadow: 3px 3px 0px #000;
+}
+
+.noir-btn-amber:hover {
+  background: #b36b00;
+}
+
+/* =============================================================================
+   MODAL DIALOGUES & POPUP OVERLAYS
+   ============================================================================= */
+.noir-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 5, 8, 0.88);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  animation: modalFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; transform: scale(0.96); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.noir-modal-card {
+  width: 100%;
+  max-width: 680px;
+  max-height: 92vh;
+  overflow-y: auto;
+  background: #11141c;
+  border: 4px solid #000;
+  box-shadow: 8px 8px 0px #000, 0 0 40px rgba(0, 0, 0, 0.9);
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .noir-modal-card {
+    max-width: 96vw;
+  }
+  .comic-caption-box {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+}

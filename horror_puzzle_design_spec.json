@@ -1,0 +1,840 @@
+{
+  "title": "ESCAPE PROTOCOL: HAUNTED 1990s COLLEGE - MASTER HORROR NARRATIVE & PUZZLE DESIGN SPECIFICATION",
+  "setting": "Blackwood Hall & Subterranean Project Zero Complex, October 28, 1994 Lockdown",
+  "version": "1.0.0",
+  "author": "Horror Narrative & Puzzle Design Specialist",
+  "missions": {
+    "MISSION_A": {
+      "id": "mission_a",
+      "name": "The Forgotten Wing",
+      "subtitle": "Language & Visual Deduction",
+      "theme": "1990s Humanities & Administrative Wing (Blackwood Hall). Decrepit mahogany, peeling floral wallpaper, flickering amber lights, blood-stained registers, dry chalk dust, and whispering echoes.",
+      "rooms": [
+        {
+          "room_number": 1,
+          "room_id": "room_a_01_reception",
+          "name": "Room 01: Reception",
+          "horror_title": "The Gatekeeper's Rot",
+          "lore": "On October 28, 1994, at 11:15 PM, night receptionist Clara Vance locked the heavy iron corridor gates as panicked shrieks echoed from the auditorium. Her dried blood still stains the visitor ledger where she frantically crossed off names of students who never returned from the dark.",
+          "visual_description": "Noir shadow blinds cast slanted cage-like shadows across a water-damaged mahogany desk. A shattered fluorescent tube hums overhead in erratic yellow spasms. Rain lashes against cracked bay windows while mold crawls up peeling collegiate wallpaper.",
+          "hotspots": [
+            {
+              "id": "noticeboard",
+              "label": "Staff Bulletin Board",
+              "description": "A corkboard with yellowed eviction memos and a stained staff memorandum dated Oct 28, 1994, bearing the initials C.V. and emergency instructions.",
+              "clue_content": "MEMORANDUM (28-OCT-1994): In event of Level-3 lockdown, only visitors whose clearance matches active registrar initials [C.V.] remain validated. All other entries must be struck from the manifest."
+            },
+            {
+              "id": "register",
+              "label": "Dusty Visitor Register",
+              "description": "A leather-bound registry on the counter with names crossed out in violent fountain pen strokes.",
+              "clue_content": "10:15 PM - J. Miller (Student) [STRIKE]\n10:40 PM - K. Harris (Lecturer) [STRIKE]\n11:05 PM - D. Aris (Janitor) [STRIKE]\n11:12 PM - C. Vance (Registrar) — Gate PIN: 492 [UNCROSSED]\n11:20 PM - M. Thorne (Guard) [STRIKE]"
+            },
+            {
+              "id": "reception_drawer_base",
+              "label": "Hollow Desk Drawer Base",
+              "is_hidden_clue": true,
+              "mandatory_pdf_location": "Inside the hollow base of the reception desk drawer",
+              "description": "A loose false bottom inside the lower receptionist desk drawer.",
+              "discovery_text": "You pry loose the splintered false bottom of the desk drawer. Hidden inside lies a tarnished Brass Skeleton Key and a trembling note dated midnight: \"C.V. - The iron gates will hold them for only a few minutes. Take the key... and never turn back.\"",
+              "yields_item": "Brass Skeleton Key",
+              "yields_clue": "Confirms C.V. is Clara Vance and warns that gates require PIN 492."
+            },
+            {
+              "id": "gate_keypad",
+              "label": "Barred Security Gate & Digital Keypad",
+              "description": "Heavy iron security gates blocking access to the corridor. Beside it hangs a worn 1990s push-button digital keypad with a flashing crimson LED.",
+              "clue_content": "KEYPAD STATUS: LOCKED. ENTER 3-DIGIT CLEARANCE PIN."
+            }
+          ],
+          "puzzle": {
+            "type": "Simple Clue Matching / Numeric PIN",
+            "input_mechanism": "3-Digit Push-Button Keypad",
+            "correct_answer": "492",
+            "deduction_path": "Cross-reference the initials \"C.V.\" from the noticeboard memo with the visitor register entries. Only Clara Vance (C.V.) at 11:12 PM remains uncrossed, which records gate clearance PIN 492.",
+            "hidden_clue_role": "The hidden drawer base proves C.V. is Clara Vance and provides the Brass Skeleton Key needed for later rooms."
+          },
+          "hints": {
+            "tier_1": "Check the staff memorandum pinned to the bulletin board. Whose initials authorised the lockdown clearance?",
+            "tier_2": "Find the name in the visitor logbook whose initials match 'C.V.'. Only one entry is not struck through with ink.",
+            "tier_3": "Clara Vance's entry at 11:12 PM is the uncrossed entry. Enter her 3-digit clearance PIN '492' into the gate keypad."
+          },
+          "reward": "Brass Skeleton Key & Unlocked Corridor Gate"
+        },
+        {
+          "room_number": 2,
+          "room_id": "room_a_02_locker_row",
+          "name": "Room 02: Locker Row",
+          "horror_title": "The Whispering Lockers",
+          "lore": "Metal lockers lining Hallway B rattle violently whenever the wind howls through shattered skylights, as if someone is trapped inside banging to be let out. In 1994, star student Samuel Ward crawled into locker #204 during the frenzy and suffocated in complete silence.",
+          "visual_description": "Sallow green rust coats rows of battered school lockers. Long dried trails of crimson drag marks streak across the checkered linoleum floor toward Locker #204. Flickering emergency floodlights cast elongated, jittering silhouettes down the hallway.",
+          "hotspots": [
+            {
+              "id": "torn_timetable",
+              "label": "Torn Class Timetable",
+              "description": "A water-damaged timetable pinned to the wall showing period numbers for the Fall 1994 semester.",
+              "clue_content": "TIMETABLE (FALL 1994):\nPeriod 1: English Lit\nPeriod 3: Advanced Calculus (Math)\nPeriod 5: Modern History\nPeriod 7: Organic Chemistry (Chem Lab)\nPeriod 8: Experimental Physics (Physics Lab)"
+            },
+            {
+              "id": "locker_stickers",
+              "label": "Locker #204 Subject Decals",
+              "description": "Locker #204 has yellow chalk outlines and three distinct stickers pasted over the vents.",
+              "clue_content": "Sticker 1: Erlenmeyer chemical flask (Chemistry)\nSticker 2: Square root & protractor (Math)\nSticker 3: Atom with electron orbits (Physics)"
+            },
+            {
+              "id": "middle_bench_underside",
+              "label": "Underside of Middle Hallway Bench",
+              "is_hidden_clue": true,
+              "mandatory_pdf_location": "Scratched onto the underside of the middle bench near the lockers",
+              "description": "Kneeling on the blood-stained checkered floor reveals frantic gouges carved into the wooden bench slat.",
+              "discovery_text": "Carved with a pocketknife into the underside of the middle bench are desperate jagged words: \"ORDER IS SACRED: Chem -> Math -> Phys. Don't let them hear the tumblers turn.\"",
+              "yields_item": null,
+              "yields_clue": "Establishes the exact sequence order: Chemistry (Period 7), Math (Period 3), Physics (Period 8)."
+            },
+            {
+              "id": "locker_204_dial",
+              "label": "Locker #204 Rotary Dial Lock",
+              "description": "A heavy three-tumbler rotary dial lock securing the battered door of Locker #204.",
+              "clue_content": "DIAL TUMBLERS: [ 0 ] - [ 0 ] - [ 0 ]"
+            }
+          ],
+          "puzzle": {
+            "type": "Number / Order Puzzle",
+            "input_mechanism": "3-Tumbler Rotary Combination Dial (0-9, 0-9, 0-9)",
+            "correct_answer": "738",
+            "deduction_path": "Identify the three subjects represented by the locker stickers (Chemistry, Math, Physics). Look up their respective period numbers on the torn timetable (Chem = 7, Math = 3, Physics = 8). The hidden bench inscription confirms the order Chem -> Math -> Physics, yielding 7-3-8.",
+            "hidden_clue_role": "Removes ambiguity on subject ordering, verifying that Chem is first, Math second, and Physics third."
+          },
+          "hints": {
+            "tier_1": "Locker #204 is marked with stickers for three academic subjects. Check the torn timetable on the wall for their class periods.",
+            "tier_2": "Look under the wooden bench opposite the lockers for the correct subject order: Chemistry first, Math second, Physics third.",
+            "tier_3": "Chemistry is Period 7, Math is Period 3, and Physics is Period 8. Turn the three rotary dials to 7 - 3 - 8."
+          },
+          "reward": "Magnetic Security Keycard (Bulkhead Access)"
+        },
+        {
+          "room_number": 3,
+          "room_id": "room_a_03_lecture_hall",
+          "name": "Room 03: Lecture Hall",
+          "horror_title": "Amphitheater of Shadows",
+          "lore": "Steep wooden stadium seating descends into pitch-black gloom where Professor Aldus Crowley delivered his final lecture on occult philology before vanishing mid-sentence. Chalk dust still hangs suspended in the stagnant chill, smelling of brimstone and wet copper.",
+          "visual_description": "Towering tiered rows of empty wooden desks face an expansive slate blackboard cracked down the center. A single spotlight creaks overhead, swaying slightly on a frayed cord. Shadows dance between the folding theater seats like watchful spectators.",
+          "hotspots": [
+            {
+              "id": "blackboard",
+              "label": "Cracked Slate Blackboard",
+              "description": "A massive blackboard covered in Crowley's unfinished lecture thesis with three underlined missing words.",
+              "clue_content": "THESIS: \"WHEN THE [ ___ ] FALLS SILENT, THE [ ___ ] AWAKENS IN THE [ ___ ].\""
+            },
+            {
+              "id": "professor_notes",
+              "label": "Lectern Portfolio & Margin Notes",
+              "description": "Professor Crowley's personal lecture notes with manic handwritten vocabulary scribbles in the margins.",
+              "clue_content": "Margin p.14: \"The bell tower chimes cease at midnight; the BELL falls silent...\"\nMargin p.22: \"Beneath our feet, the BEAST awakens from ancient slumber...\"\nMargin p.39: \"All light is consumed in the ABYSS between worlds...\""
+            },
+            {
+              "id": "chalkboard_frame_hinge",
+              "label": "Swinging Chalkboard Frame Hinge",
+              "is_hidden_clue": true,
+              "mandatory_pdf_location": "Tucked behind the swinging hinge of the chalkboard frame",
+              "description": "A narrow gap behind the cast-iron swinging hinge on the left side of the blackboard.",
+              "discovery_text": "Behind the iron frame hinge, you find a folded slip of parchment sealed with red wax: \"Look closely at the handwriting: 1. BELL (silence), 2. BEAST (awakens), 3. ABYSS (depths). The trinity of words disengages the lectern lock.\"",
+              "yields_item": "Antique Iron Cog",
+              "yields_clue": "Direct verification of the three missing words: BELL, BEAST, ABYSS."
+            },
+            {
+              "id": "lectern_cylinder_lock",
+              "label": "Lectern Cylinder Letter Mechanism",
+              "description": "A brass cylinder lock on the professor's podium that controls the exit door solenoid.",
+              "clue_content": "ENTER WORDS: [ WORD 1 ] - [ WORD 2 ] - [ WORD 3 ]"
+            }
+          ],
+          "puzzle": {
+            "type": "Language Deduction / Sentence Completion",
+            "input_mechanism": "3-Word Text Input (or 3 rotating cylinder word dials)",
+            "correct_answer": "BELL BEAST ABYSS",
+            "deduction_path": "Match each contextual phrase in the incomplete blackboard thesis to Crowley's margin notes: \"falls silent\" corresponds to BELL; \"awakens\" corresponds to BEAST; \"in the\" corresponds to ABYSS. The completed sentence is: \"WHEN THE BELL FALLS SILENT, THE BEAST AWAKENS IN THE ABYSS.\"",
+            "hidden_clue_role": "Provides the exact word order and rewards the Antique Iron Cog."
+          },
+          "hints": {
+            "tier_1": "Read the unfinished sentence on the blackboard and compare each blank with Professor Crowley's margin notes on the podium.",
+            "tier_2": "Look closely at the handwriting in the margins: find which specific words accompany \"falls silent\", \"awakens\", and \"in the\".",
+            "tier_3": "The missing words in order are BELL, BEAST, ABYSS. Input them into the lectern mechanism."
+          },
+          "reward": "Antique Iron Cog & Amphitheater Exit Unlock"
+        },
+        {
+          "room_number": 4,
+          "room_id": "room_a_04_library",
+          "name": "Room 04: Library",
+          "horror_title": "The Stacks of Silence",
+          "lore": "Two stories of towering mahogany bookcases reek of decay and decomposing bookbindings. The chief librarian was found crushed beneath the collapsed Folklore section in 1994, clutching an index card bearing a warning about an entity veiled behind the stacks.",
+          "visual_description": "Dusty emerald banker's lamps flicker erratically atop green felt reading tables. Tall wrought-iron spiral staircases lead to shadowy catwalks shrouded in spiderwebs. Torn book pages flutter across the parquet floor in an unnatural sub-zero draft.",
+          "hotspots": [
+            {
+              "id": "librarian_note",
+              "label": "Librarian's Cataloging Mandate",
+              "description": "A blood-spotted index card on the central cataloging table.",
+              "clue_content": "MANDATE (OCT 1994): \"Order the four displaced grimoires chronologically by Roman publication year. Their gilded spine letters will reveal the secret word that blinds the watchers.\""
+            },
+            {
+              "id": "displaced_books",
+              "label": "Four Scattered Ancient Tomes",
+              "description": "Four heavy leather-bound tomes on the reading desk, each with an embossed spine letter and a title page date.",
+              "clue_content": "Tome 1: Spine [E] - \"Echoes of the Void\" (Pub. MDCCCLXXXIX = 1889)\nTome 2: Spine [L] - \"Lamentations of Blackwood\" (Pub. MCMXXXIX = 1939)\nTome 3: Spine [V] - \"Voyage of the Damned\" (Pub. MDCCCXLII = 1842)\nTome 4: Spine [I] - \"Incantations of Shadows\" (Pub. MCMXIV = 1914)"
+            },
+            {
+              "id": "desk_leg_carving",
+              "label": "Librarian's Desk Wooden Leg",
+              "is_hidden_clue": true,
+              "mandatory_pdf_location": "Carved into the wooden leg of the librarian's main reading desk",
+              "description": "The carved claw-foot leg of the oak desk has deep incisions hidden on its inner face.",
+              "discovery_text": "Carved into the rear of the librarian's desk leg is a jagged inscription: \"Pay attention to the roman numerals. Earliest to latest: 1842 (V), 1889 (E), 1914 (I), 1939 (L). The word is VEIL.\" Tucked inside a wood split is an Etched Brass Bookmark.",
+              "yields_item": "Etched Brass Bookmark",
+              "yields_clue": "Confirms the chronological order and spells the secret word VEIL."
+            },
+            {
+              "id": "bookcase_vault_box",
+              "label": "Bookcase Lockbox",
+              "description": "A 4-letter rotating letter padlock securing a recessed wall safe within the bookshelf arch.",
+              "clue_content": "COMBINATION LOCK: [ _ ] [ _ ] [ _ ] [ _ ]"
+            }
+          ],
+          "puzzle": {
+            "type": "Ordering / Hidden Word",
+            "input_mechanism": "4-Letter Word Padlock",
+            "correct_answer": "VEIL",
+            "deduction_path": "Convert Roman publication dates or read publication years on the four displaced books: 1842 (MDCCCXLII) = V, 1889 (MDCCCLXXXIX) = E, 1914 (MCMXIV) = I, 1939 (MCMXXXIX) = L. Arranging them chronologically spells V-E-I-L.",
+            "hidden_clue_role": "Explains Roman numeral translation and awards the Etched Brass Bookmark."
+          },
+          "hints": {
+            "tier_1": "Check the librarian's mandate note. The four books must be arranged in chronological order by their publication dates.",
+            "tier_2": "Pay attention to the Roman numerals and years: 1842 comes first, followed by 1889, 1914, and 1939. Note the letter embossed on each book spine.",
+            "tier_3": "Arranging the books in chronological order gives the spine letters V, E, I, L. Enter 'VEIL' into the lockbox padlock."
+          },
+          "reward": "Etched Brass Bookmark & Library Vault Key"
+        },
+        {
+          "room_number": 5,
+          "room_id": "room_a_05_art_room",
+          "name": "Room 05: Art Room",
+          "horror_title": "Gallery of the Grotesque",
+          "lore": "During the 1994 lockdown, third-year art students began carving terrifying cosmic geometries and blindfolded faces into wet clay until their hands bled. The room still reeks of linseed oil, turpentine, and old copper.",
+          "visual_description": "Eerie plaster busts with gouged-out eyes stare from splintered easels. A single directional lamp casts harsh, jagged noir shadows across a gallery wall covered in bizarre charcoal sketches. Smashed ceramic limbs litter the floor.",
+          "hotspots": [
+            {
+              "id": "wall_sketches",
+              "label": "Charcoal Wall Sketches & Symbols",
+              "description": "Four distinct occult sketches on the north wall labeled with collegiate glyphs.",
+              "clue_content": "Sketch 1: Dripping crescent moon [MOON / ☾]\nSketch 2: Weeping punctured eye [EYE / ◉]\nSketch 3: Coiled double-headed serpent [SERPENT / 🐍]\nSketch 4: Hourglass with bone dust [HOURGLASS / ⧖]"
+            },
+            {
+              "id": "shadow_pedestals",
+              "label": "Spotlight & Cast Shadows",
+              "description": "A directional spotlight illuminates four rotated plaster figures on stands, casting four distinct silhouette outlines across the back gallery wall in left-to-right order.",
+              "clue_content": "SHADOW PROJECTION (LEFT TO RIGHT):\nPosition 1: Coiled serpent silhouette\nPosition 2: Crescent moon silhouette\nPosition 3: Hourglass silhouette\nPosition 4: Weeping eye silhouette"
+            },
+            {
+              "id": "plaster_bust_hollow",
+              "label": "Hollow Plaster Sculpture Bust",
+              "is_hidden_clue": true,
+              "mandatory_pdf_location": "Hidden inside an old hollowed-out plaster sculpture bust",
+              "description": "An agonized, screaming plaster bust sitting on the back studio bench with a cracked neck joint.",
+              "discovery_text": "Reaching inside the hollowed-out neck cavity of the screaming bust, your fingers retrieve a rolled sketch: \"The shadow sequence on the back wall reveals the path: 1: Serpent, 2: Moon, 3: Hourglass, 4: Eye (S-M-H-E).\" You also pull out an Ivory Palette Knife.",
+              "yields_item": "Ivory Palette Knife",
+              "yields_clue": "Confirms the shadow symbol sequence: SERPENT, MOON, HOURGLASS, EYE."
+            },
+            {
+              "id": "gallery_glyph_door",
+              "label": "Stone Door Glyph Receptors",
+              "description": "A heavy stone door flanked by four rotating circular dials depicting the four collegiate symbols.",
+              "clue_content": "GLYPH SLOTS: [ GLYPH 1 ] - [ GLYPH 2 ] - [ GLYPH 3 ] - [ GLYPH 4 ]"
+            }
+          ],
+          "puzzle": {
+            "type": "Visual Recognition / Symbol Matching",
+            "input_mechanism": "4-Symbol Rotating Dial Panel (or Sequence SERPENT-MOON-HOURGLASS-EYE)",
+            "correct_answer": "SERPENT - MOON - HOURGLASS - EYE",
+            "deduction_path": "Match each cast shadow silhouette from left to right against the charcoal sketches on the north wall. The shadow outlines form: 1. Serpent, 2. Moon, 3. Hourglass, 4. Eye. Dialing this sequence unlocks the door.",
+            "hidden_clue_role": "Inside the hollow bust, the artist confirmed the exact symbol names and awarded the Ivory Palette Knife."
+          },
+          "hints": {
+            "tier_1": "Look at the four distinct silhouettes cast by the spotlight onto the rear wall. Compare each outline to the charcoal wall sketches.",
+            "tier_2": "Follow the shadows in order from left to right: first is the snake shape, followed by the crescent curve, the pinched glass shape, and the oval eye shape.",
+            "tier_3": "The sequence from left to right is Serpent, Moon, Hourglass, Eye. Rotate the four glyph dials to match."
+          },
+          "reward": "Ivory Palette Knife & Corridor Door Unlock"
+        },
+        {
+          "room_number": 6,
+          "room_id": "room_a_06_staff_office",
+          "name": "Room 06: Staff Office",
+          "horror_title": "The Dean's Dissection",
+          "lore": "Dean Sterling's private office was the inner sanctum of the administration. When the campus was evacuated in 1994, Sterling frantically shredded his field journals and locked himself inside the fireproof vault; when rescuers arrived days later, only his shredded coat remained.",
+          "visual_description": "Crimson Venetian blinds cast razor-thin bars of crimson moonlight across an upturned mahogany desk. Loose paper flutters in the chill air, while shattered whiskey bottles and a tipped-over coat rack form an obstacle course of debris.",
+          "hotspots": [
+            {
+              "id": "torn_paper_fragments",
+              "label": "Scattered Paper Fragments",
+              "description": "Shredded document strips scattered across the leather desk blotter.",
+              "clue_content": "RECONSTRUCTED NOTE: \"URGENT SECURITY NOTICE: Subject 73 has infiltrated faculty ranks under academic cover. The compromised personnel photograph on the faculty board is marked with a RED WAX SEAL. Do not allow him near the vaults.\""
+            },
+            {
+              "id": "faculty_directory_board",
+              "label": "Faculty Portrait Directory Board",
+              "description": "A framed corkboard displaying six faculty headshots with nameplates and pushpins.",
+              "clue_content": "Portraits:\n- Dr. Aris (Botany) [Blue pin]\n- Prof. Crowley (Philology) [Green pin]\n- Dean Sterling (Administration) [Black pin]\n- Dr. Julian Mercer (Quantum Biology) [STAMPED WITH RED WAX SEAL]\n- Nurse Ratcliffe (Infirmary) [Yellow pin]\n- Officer Thorne (Campus Police) [White pin]"
+            },
+            {
+              "id": "filing_cabinet_back",
+              "label": "Vertical Filing Cabinet Back Panel",
+              "is_hidden_clue": true,
+              "mandatory_pdf_location": "Stuck to the back panel of the vertical filing cabinet",
+              "description": "The heavy steel filing cabinet has been shoved against the corner wall.",
+              "discovery_text": "Squeezing behind the filing cabinet, you find a manila envelope taped to the back panel: \"Group the fragments with care. Target is Dr. Mercer, Employee ID: #615. Red wax seal confirms contamination.\" Inside is Dr. Mercer's dossier and a Small Steel Key.",
+              "yields_item": "Small Steel Key",
+              "yields_clue": "Identifies target as Dr. Mercer and reveals his clearance ID: 615."
+            },
+            {
+              "id": "dean_wall_safe",
+              "label": "Fireproof Wall Safe",
+              "description": "A digital steel safe built into the wall behind the Dean's portrait requiring the target subject's Clearance ID.",
+              "clue_content": "SAFE INPUT: ENTER TARGET CLEARANCE ID [ _ _ _ ]"
+            }
+          ],
+          "puzzle": {
+            "type": "Fragment Assembly & Visual Identification",
+            "input_mechanism": "3-Digit Clearance PIN (or Target Name MERCER)",
+            "correct_answer": "615",
+            "deduction_path": "Assemble the torn memo strips to read the directive: the compromised individual's photo has a RED WAX SEAL. Inspect the directory board: Dr. Julian Mercer's portrait bears the seal. The hidden file behind the cabinet provides his Clearance ID: 615.",
+            "hidden_clue_role": "Directly provides Dr. Mercer's 3-digit clearance code (615) and the Small Steel Key."
+          },
+          "hints": {
+            "tier_1": "Piece together the torn paper fragments on the desk blotter to learn how the compromised faculty member was marked.",
+            "tier_2": "Group the fragments with matching edges. The note warns to look for a 'RED WAX SEAL' on the faculty directory board.",
+            "tier_3": "Dr. Julian Mercer has the red wax seal on his photograph. His clearance ID from the personnel file behind the cabinet is 615. Enter '615'."
+          },
+          "reward": "Small Steel Key & Personnel File #615"
+        },
+        {
+          "room_number": 7,
+          "room_id": "room_a_07_examination_room",
+          "name": "Room 07: Examination Room",
+          "horror_title": "The Silent Trial",
+          "lore": "In this windowless concrete bunker, dozens of empty examination desks sit arranged in perfect, unnerving geometric symmetry. On October 28, 1994, students were midway through their finals when the lockdown sirens wailed and neurotoxic suppressant gas seeped into the vents.",
+          "visual_description": "Cold industrial fluorescent lights flicker with an agonizing high-pitched buzz. Desks bear yellowed exam booklets covered in frantic calculations that devolve into manic repetitive scratches. A solitary wooden teacher's podium looms at the front of the hall like a gallows.",
+          "hotspots": [
+            {
+              "id": "exam_sheet",
+              "label": "Comprehensive Logic Exam Sheet",
+              "description": "A printed Fall 1994 exam sheet with red instructor annotations.",
+              "clue_content": "EXAM QUESTION 12: \"Emergency ventilation override password encoded below. Apply the Proctor's Rule: 'Retreat three steps into the past (Caesar Shift: -3)'.\nCIPHERTEXT: SXUJH\""
+            },
+            {
+              "id": "student_desks",
+              "label": "Carved Alphabetic Reference Desks",
+              "description": "The front desks have alphabet strips carved into the varnish for student reference.",
+              "clue_content": "A B C D E F G H I J K L M N O P Q R S T U V W X Y Z"
+            },
+            {
+              "id": "podium_underside",
+              "label": "Underside of Examination Podium",
+              "is_hidden_clue": true,
+              "mandatory_pdf_location": "Flipped over and taped to the underside of the examination podium",
+              "description": "Peering beneath the raised wooden lectern podium reveals a taped card.",
+              "discovery_text": "Taped to the underside of the podium is a laminated cheat card: \"Shift each letter backward by 3: S->P, X->U, U->R, J->G, H->E. Override word is PURGE.\" Taped beside it is a working UV Penlight.",
+              "yields_item": "UV Penlight",
+              "yields_clue": "Explicit shift table and decoded override word PURGE."
+            },
+            {
+              "id": "ventilation_override_panel",
+              "label": "Blast Hatch Ventilation Override",
+              "description": "An airtight emergency hatch console requiring the 5-letter override word.",
+              "clue_content": "OVERRIDE CODE: [ _ ] [ _ ] [ _ ] [ _ ] [ _ ]"
+            }
+          ],
+          "puzzle": {
+            "type": "Simple Cipher (Caesar Shift -3)",
+            "input_mechanism": "5-Letter Word Entry",
+            "correct_answer": "PURGE",
+            "deduction_path": "Apply the Caesar shift of -3 to each letter of ciphertext SXUJH: S(-3)=P, X(-3)=U, U(-3)=R, J(-3)=G, H(-3)=E. The resulting word is PURGE.",
+            "hidden_clue_role": "Confirms the -3 backward shift calculation, gives the UV Penlight essential for Room 08."
+          },
+          "hints": {
+            "tier_1": "Read the instruction on the exam sheet: you must shift each letter of the ciphertext backward by 3 alphabet positions.",
+            "tier_2": "Shift each letter backward by 3: S becomes P, X becomes U, and so on.",
+            "tier_3": "SXUJH shifted backward by 3 positions gives P-U-R-G-E. Enter 'PURGE' into the hatch override console."
+          },
+          "reward": "UV Penlight & Ventilation Hatch Access"
+        },
+        {
+          "room_number": 8,
+          "room_id": "room_a_08_sealed_corridor",
+          "name": "Room 08: Sealed Corridor",
+          "horror_title": "The Final Threshold",
+          "lore": "The nexus between the old humanities wing and the classified subterranean laboratory. Heavy blast doors slammed shut 32 years ago, sealing whatever entity took over Blackwood Hall behind feet of reinforced lead and hydraulic deadbolts.",
+          "visual_description": "Darkroom crimson emergency beacons flash in slow, hypnotic rotations. Exposed conduit sparks violently from the ceiling, hissing steam into the damp air. Warning stencils in flaking hazard-yellow read: \"QUARANTINE LEVEL 4 - AUTHORIZED FACULTY ONLY\".",
+          "hotspots": [
+            {
+              "id": "quarantine_console",
+              "label": "Master Bulkhead Console",
+              "description": "A dual-terminal console guarding the reinforced subterranean blast doors.",
+              "clue_content": "MISSION A BREACH CONSOLE:\nFIELD 1: LOCKER COMBINATION (Room 02)\nFIELD 2: EXAM CIPHER OVERRIDE (Room 07)\nFIELD 3: REDACTED SUBJECT CLEARANCE ID (Room 06)"
+            },
+            {
+              "id": "emergency_electrical_box",
+              "label": "Emergency Electrical Box Panel",
+              "is_hidden_clue": true,
+              "mandatory_pdf_location": "Scrawled in invisible UV ink inside the emergency electrical box panel",
+              "description": "A rusted high-voltage breaker box beside the hydraulic door pistons.",
+              "discovery_text": "Switching on your UV Penlight inside the electrical box panel illuminates glowing green text: \"Combine the sequence from across the wing: Locker [738] + Cipher [PURGE] + Subject [615]. Master Breach Key: 738-PURGE-615.\" Inside rests the Master Wing A Key.",
+              "yields_item": "Master Wing A Clearance Key",
+              "yields_clue": "Synthesizes all three components into the exact required format 738-PURGE-615."
+            },
+            {
+              "id": "hydraulic_blast_door",
+              "label": "Heavy Subterranean Blast Door",
+              "description": "A massive lead-lined blast door with three magnetic locking clamps.",
+              "clue_content": "STATUS: 3 LOCKS ENGAGED. AWAITING CREDENTIAL SYNTHESIS."
+            },
+            {
+              "id": "terminal_keyhole",
+              "label": "Brass & Steel Dual Keyhole",
+              "description": "Two mechanical key slots requiring the Brass Skeleton Key (Room 01) and Small Steel Key (Room 06).",
+              "clue_content": "DUAL MECHANICAL INTERLOCK: READY FOR KEYS."
+            }
+          ],
+          "puzzle": {
+            "type": "Multi-Clue Deduction / Credential Synthesis",
+            "input_mechanism": "Synthesized Code Entry & Keycard Authentication",
+            "correct_answer": "738-PURGE-615",
+            "deduction_path": "Combine the locker combination from Room 02 (738), the decoded cipher from Room 07 (PURGE), and Dr. Mercer's clearance ID from Room 06 (615). Formatted as 738-PURGE-615, verified by the hidden UV ink inscription.",
+            "hidden_clue_role": "The UV ink inscription reveals the exact master synthesis format (738-PURGE-615) and awards the Master Wing A Clearance Key."
+          },
+          "hints": {
+            "tier_1": "The final console requires three core deductions made during your journey through the Forgotten Wing.",
+            "tier_2": "Combine the sequence from your notebook: Locker 204 combination (Room 02), the exam room cipher (Room 07), and Dr. Mercer's ID (Room 06).",
+            "tier_3": "Enter the synthesized code '738-PURGE-615' into the console to release all hydraulic deadbolts."
+          },
+          "reward": "Mission A Complete! Access to Mission B: Project Zero"
+        }
+      ]
+    },
+    "MISSION_B": {
+      "id": "mission_b",
+      "name": "Project Zero",
+      "subtitle": "Science & Intelligence",
+      "theme": "Subterranean 1990s Government/Collegiate Bio-Physics Research Facility. Sterile chrome stained with toxic fluorescent bioluminescence, cracked glass cryo-chambers, buzzing cathode-ray tubes, Geiger counters, heavy high-voltage cables, amber monochrome terminals, containment vaults.",
+      "rooms": [
+        {
+          "room_number": 1,
+          "room_id": "room_b_01_science_block",
+          "name": "Room 01: Science Block",
+          "horror_title": "The Specimen Quarantine",
+          "lore": "In the prep wing of the advanced sciences building, autopsies and mutagenic tissue tests were carried out behind thick lead-glass partitions. When containment failed, living tissue samples fused with the ventilation systems, leaving dried ichor dripping from the ceiling.",
+          "visual_description": "Smashed glass and shattered petri dishes cover stainless steel autopsy tables. A broken amber emergency lantern casts long shadows over cracked tile walls. The pungent stench of formaldehyde and ozone suffocates the room.",
+          "hotspots": [
+            {
+              "id": "lab_safety_poster",
+              "label": "Stained Lab Safety Poster",
+              "description": "A blood-spattered wall chart showing silhouettes of standard laboratory equipment paired with index digits.",
+              "clue_content": "LAB EQUIPMENT IDENTIFIER:\n[ Silhouette 1: Bunsen Burner ] = 1\n[ Silhouette 2: 500ml Graduated Beaker ] = 4\n[ Silhouette 3: Ceramic Crucible & Pestle ] = 2\n[ Silhouette 4: Erlenmeyer Flask ] = 9"
+            },
+            {
+              "id": "prep_shelf_beaker",
+              "label": "Sealed Glass Beaker on Prep Shelf",
+              "is_hidden_clue": true,
+              "mandatory_pdf_location": "Inside a sealed glass beaker on the back preparation shelf",
+              "description": "A murky sealed 1000ml glass beaker sitting behind dusty chemical jars.",
+              "discovery_text": "Prying the rubber stopper off the sealed glass beaker on the back shelf, you retrieve a preserved tag: \"EQUIPMENT CALIBRATION ORDER: Thermal tolerance sequence: 1. Bunsen Burner, 2. Beaker, 3. Crucible, 4. Flask. Code is 1-4-2-9.\" You also find Insulated Lab Tongs.",
+              "yields_item": "Insulated Lab Tongs",
+              "yields_clue": "Gives the exact sequence order: Burner -> Beaker -> Crucible -> Flask (1-4-2-9)."
+            },
+            {
+              "id": "equipment_sorting_bench",
+              "label": "Apparatus Silhouette Tray",
+              "description": "A stainless steel tray on the counter with 4 indented silhouette slots corresponding to Burner, Beaker, Crucible, and Flask.",
+              "clue_content": "TRAY INDENTS: [ Burner ] - [ Beaker ] - [ Crucible ] - [ Flask ]"
+            },
+            {
+              "id": "reagent_cabinet_keypad",
+              "label": "Locked Reagent Cabinet",
+              "description": "A heavy glass-fronted reagent cabinet guarded by a 4-digit numeric keypad.",
+              "clue_content": "CABINET LOCK: ENTER 4-DIGIT CALIBRATION CODE"
+            }
+          ],
+          "puzzle": {
+            "type": "Object Matching / Silhouette Decoding",
+            "input_mechanism": "4-Digit Digital Keypad Code",
+            "correct_answer": "1429",
+            "deduction_path": "Match each piece of physical apparatus to its silhouette on the safety poster: Bunsen Burner = 1, Beaker = 4, Crucible = 2, Flask = 9. The prep shelf note confirms the order Burner -> Beaker -> Crucible -> Flask, yielding 1429.",
+            "hidden_clue_role": "Establishes the sequence order and provides the Insulated Lab Tongs."
+          },
+          "hints": {
+            "tier_1": "Match each piece of lab equipment to its corresponding silhouette on the stained safety poster to find its digit.",
+            "tier_2": "Check the preparation guide found on the back shelf: the required equipment order is Bunsen Burner, Beaker, Crucible, and Flask.",
+            "tier_3": "Burner is 1, Beaker is 4, Crucible is 2, and Flask is 9. Enter '1429' into the reagent cabinet keypad."
+          },
+          "reward": "Insulated Lab Tongs & Reagent Cabinet Access"
+        },
+        {
+          "room_number": 2,
+          "room_id": "room_b_02_mathematics_room",
+          "name": "Room 02: Mathematics Room",
+          "horror_title": "The Fractal Asylum",
+          "lore": "Lead theoretical physicist Dr. Ronald Sterling spent three sleepless weeks before the incident covering every surface of this classroom with chaotic recursive equations, claiming the Fibonacci series held the heartbeat of a trans-dimensional entity.",
+          "visual_description": "Floor-to-ceiling green slate blackboards are filled with dizzying, frantic geometric spirals and blood-smeared numbers. Desks have been overturned and pushed against the walls in a defensive barricade. A broken ceiling fan rotates sluggishly with a sickening squeak.",
+          "hotspots": [
+            {
+              "id": "wall_whiteboard",
+              "label": "Sliding Whiteboard Sequence",
+              "description": "A wall-mounted whiteboard with a prominent recursive series written in bold green dry-erase marker.",
+              "clue_content": "SERIES: 2,  3,  5,  8,  13,  21,  34,  [ ? ]\nNOTE: \"Each generation consumes the sum of the two before it...\""
+            },
+            {
+              "id": "teacher_notes",
+              "label": "Teacher's Handwritten Calculations",
+              "description": "Scattered calculation sheets on the front desk demonstrating recursive summation.",
+              "clue_content": "Calculations:\n2 + 3 = 5\n3 + 5 = 8\n5 + 8 = 13\n8 + 13 = 21\n13 + 21 = 34\n21 + 34 = [ VALUE ]"
+            },
+            {
+              "id": "sliding_whiteboard_rear",
+              "label": "Behind Sliding Wall-Mounted Whiteboard",
+              "is_hidden_clue": true,
+              "mandatory_pdf_location": "Taped behind the sliding wall-mounted whiteboard",
+              "description": "Sliding the central whiteboard to the far left reveals the hidden brick recess behind it.",
+              "discovery_text": "Taped behind the sliding whiteboard is a frantic note: \"The convergence term is 55 (21 + 34 = 55). Enter 55 into the security box to recover the magnet.\" Stuck to the note with electrical tape is a Heavy Neodymium Magnet.",
+              "yields_item": "Heavy Neodymium Magnet",
+              "yields_clue": "Solves the sequence calculation: 21 + 34 = 55."
+            },
+            {
+              "id": "math_security_box",
+              "label": "Podium Security Box",
+              "description": "A 2-digit digital push-button lock securing the teacher's podium compartment.",
+              "clue_content": "NEXT TERM: [ _ _ ]"
+            }
+          ],
+          "puzzle": {
+            "type": "Number Sequence / Recursive Progression",
+            "input_mechanism": "2-Digit Digital Lock",
+            "correct_answer": "55",
+            "deduction_path": "Observe that each term in the sequence is the sum of the preceding two terms (Fibonacci rule: 2+3=5, 3+5=8, ..., 13+21=34). The next term is 21 + 34 = 55.",
+            "hidden_clue_role": "Directly confirms the answer 55 and awards the Heavy Neodymium Magnet."
+          },
+          "hints": {
+            "tier_1": "Look at how each number in the sequence relates to the two numbers immediately preceding it.",
+            "tier_2": "Add the two consecutive numbers: 8+13=21, 13+21=34. What is 21 + 34?",
+            "tier_3": "21 + 34 = 55. Enter '55' into the podium security box."
+          },
+          "reward": "Heavy Neodymium Magnet & Podium Drawer Access"
+        },
+        {
+          "room_number": 3,
+          "room_id": "room_b_03_chemistry_lab",
+          "name": "Room 03: Chemistry Lab",
+          "horror_title": "The Elemental Tomb",
+          "lore": "In 1994, researchers here attempted to synthesize an artificial organic compound to stabilize the anomaly. An unexpected catalytic reaction melted the safety glass, boiling the flesh off three research assistants before the airtight containment doors slammed shut.",
+          "visual_description": "Sallow toxic yellow fumes still swirl slowly inside sealed glass containment chambers. Acid burns eat deep craters into the black granite benchtops. A vintage illuminated Periodic Table of Elements hangs on the far wall, buzzing with an eerie cyan glow.",
+          "hotspots": [
+            {
+              "id": "periodic_table_wall",
+              "label": "Illuminated Periodic Table Chart",
+              "description": "A large backlit wall chart listing element names, symbols, and atomic numbers.",
+              "clue_content": "ELEMENT LOOKUP:\nCarbon (C) -> Atomic Number: 6\nNitrogen (N) -> Atomic Number: 7\nOxygen (O) -> Atomic Number: 8\nFluorine (F) -> Atomic Number: 9"
+            },
+            {
+              "id": "specimen_cabinet_label",
+              "label": "Specimen Cabinet Elemental Formula",
+              "description": "A locked reinforced steel cabinet containing a biohazard specimen jar. A brass plaque lists the unlock formula.",
+              "clue_content": "CABINET ACCESS: Enter the 4-digit atomic number sequence for the organic synthesis chain: [ C ] - [ N ] - [ O ] - [ F ]"
+            },
+            {
+              "id": "fume_hood_drain",
+              "label": "Fume Hood Sink Drain Underside",
+              "is_hidden_clue": true,
+              "mandatory_pdf_location": "Engraved on the metal underside of the fume hood sink drain",
+              "description": "Crouching beneath the chemical fume hood reveals acid-etched lettering on the lead trap pipe.",
+              "discovery_text": "Engraved into the metal curve of the drainpipe is: \"Cross-reference atomic numbers: C=6, N=7, O=8, F=9 -> Cabinet Code: 6789.\" Behind the pipe sits a sealed Glass Vial of Stabilizing Enzyme.",
+              "yields_item": "Stabilizing Enzyme Vial",
+              "yields_clue": "Explicit atomic number mapping: 6-7-8-9."
+            },
+            {
+              "id": "specimen_keypad",
+              "label": "Specimen Cabinet Digital Keypad",
+              "description": "A 4-digit keypad securing the magnetic lock on the cryo-specimen cabinet.",
+              "clue_content": "INPUT: [ _ _ _ _ ]"
+            }
+          ],
+          "puzzle": {
+            "type": "Reference-Based Science / Periodic Table Cross-Referencing",
+            "input_mechanism": "4-Digit Digital Keypad Code",
+            "correct_answer": "6789",
+            "deduction_path": "Locate the elements from the cabinet plaque (C, N, O, F) on the illuminated Periodic Table. Record their atomic numbers in order: Carbon (6), Nitrogen (7), Oxygen (8), Fluorine (9). The PIN is 6789.",
+            "hidden_clue_role": "Explains atomic number lookup, confirms 6789, and awards the Stabilizing Enzyme Vial."
+          },
+          "hints": {
+            "tier_1": "Look at the four chemical element symbols on the specimen cabinet plaque: C, N, O, and F.",
+            "tier_2": "Cross-reference the atomic numbers for Carbon (C), Nitrogen (N), Oxygen (O), and Fluorine (F) on the periodic table chart.",
+            "tier_3": "Carbon is 6, Nitrogen is 7, Oxygen is 8, and Fluorine is 9. Enter '6789' into the cabinet keypad."
+          },
+          "reward": "Stabilizing Enzyme Vial & Unlocked Cryo-Specimen Cabinet"
+        },
+        {
+          "room_number": 4,
+          "room_id": "room_b_04_computer_lab",
+          "name": "Room 04: Computer Lab",
+          "horror_title": "The Silicon Crypt",
+          "lore": "Row after row of bulky 1990s IBM-style CRT monitors hum with static electricity, displaying garbled green code. During the final moments of the blackout, the mainframe operator tried to send an SOS via punch-card binary before the power cables melted around his chair.",
+          "visual_description": "Eerie green phosphor glow from monochrome monitors bathes dust motes in sickly light. Ribbons of perforated paper tape and open computer chassis with tangled ribbon cables cover beige formica tables. A cold breeze whispers from the raised floor server plenum.",
+          "hotspots": [
+            {
+              "id": "terminal_crt",
+              "label": "Mainframe CRT Terminal Screen",
+              "description": "A green phosphor monitor displaying an active password override prompt.",
+              "clue_content": "PROJECT ZERO MAINFRAME OS v3.2\nENCRYPTED PASSWORD PACKET:\n01011010   01000101   01010010   01001111\nENTER 4-LETTER DECODED PASSWORD: > _"
+            },
+            {
+              "id": "binary_reference_card",
+              "label": "Laminated Binary Reference Card",
+              "description": "A yellowed 8-bit ASCII lookup chart taped next to the keyboard.",
+              "clue_content": "ASCII 8-BIT BINARY TABLE:\n01000001 = A\n01000101 = E\n01001111 = O\n01010010 = R\n01010100 = T\n01011010 = Z"
+            },
+            {
+              "id": "computer_tower_interior",
+              "label": "Inside Computer Tower Casing",
+              "is_hidden_clue": true,
+              "mandatory_pdf_location": "Written on a sticky note stuck inside the computer tower casing",
+              "description": "The side panel of the central desktop PC tower has been removed, exposing the motherboards.",
+              "discovery_text": "Stuck inside the computer tower chassis is a faded yellow sticky note: \"Group the binary digits into 8-bit bytes: 01011010(Z) 01000101(E) 01010010(R) 01001111(O). Password is ZERO.\" An Encrypted Magnetic Tape Drive is plugged into the drive bay.",
+              "yields_item": "Encrypted Magnetic Tape Drive",
+              "yields_clue": "Solves the binary translation directly: ZERO."
+            },
+            {
+              "id": "terminal_keyboard",
+              "label": "Mechanical Terminal Keyboard",
+              "description": "A chunky clicky mechanical keyboard awaiting the 4-letter override password.",
+              "clue_content": "READY FOR INPUT"
+            }
+          ],
+          "puzzle": {
+            "type": "Binary Decoding / ASCII Conversion",
+            "input_mechanism": "4-Letter Terminal Command Entry",
+            "correct_answer": "ZERO",
+            "deduction_path": "Group the binary message into four 8-bit bytes: 01011010, 01000101, 01010010, 01001111. Cross-reference each with the ASCII lookup card: 01011010=Z, 01000101=E, 01010010=R, 01001111=O. The terminal password is ZERO.",
+            "hidden_clue_role": "Explains grouping binary into 8-bit bytes, confirms the password ZERO, and yields the Encrypted Magnetic Tape Drive."
+          },
+          "hints": {
+            "tier_1": "The binary message on the terminal is separated into four distinct 8-digit bytes.",
+            "tier_2": "Group the binary digits into bytes of 8 and look up each byte on the laminated ASCII reference card.",
+            "tier_3": "01011010 is Z, 01000101 is E, 01010010 is R, and 01001111 is O. Type 'ZERO' into the terminal prompt."
+          },
+          "reward": "Encrypted Magnetic Tape Drive & Mainframe Access"
+        },
+        {
+          "room_number": 5,
+          "room_id": "room_b_05_optics_room",
+          "name": "Room 05: Optics Room",
+          "horror_title": "The Prismatic Void",
+          "lore": "Laser spectroscopy was used here to scan the microscopic structure of the extradimensional matter. In the dark, refracted crimson beams cast phantom geometries across the ceiling that observers swore whispered to them.",
+          "visual_description": "Pitch-black laboratory illuminated only by a piercing, razor-thin crimson laser beam reflecting off mirrors. Heavy blackout curtains seal all windows. Dust particles float in the beam like suspended fireflies.",
+          "hotspots": [
+            {
+              "id": "laser_emitter",
+              "label": "Continuous Ruby Laser Emitter",
+              "description": "A heavy brass emitter firing a straight ruby red beam East across the optical table.",
+              "clue_content": "LASER BENCH: ALIGN ROTATABLE PRISM MIRRORS TO STRIKE TARGET SENSOR."
+            },
+            {
+              "id": "mirrors_pedestal",
+              "label": "Three Rotatable Mirrors (A, B, C)",
+              "description": "Three mirrors on rotary vernier dials marked in standard deflection degrees (0°, 45°, 90°, 135°, 180°).",
+              "clue_content": "Mirror A: Receives East beam, deflects South\nMirror B: Receives South beam, deflects East\nMirror C: Receives East beam, deflects North to Sensor"
+            },
+            {
+              "id": "sliding_lens_cover",
+              "label": "Optical Bench Sliding Lens Cover",
+              "is_hidden_clue": true,
+              "mandatory_pdf_location": "Concealed behind the sliding lens cover of the optical bench",
+              "description": "A brass protective shield sliding over the collimator lens array.",
+              "discovery_text": "Sliding back the metal lens cover reveals an engineer's engraved schematic: \"Trace the beam backwards from the door sensor. Mirror A = 45°, Mirror B = 135°, Mirror C = 45°. Deflection brings the light home.\" An Optical Ruby Prism sits inside the housing.",
+              "yields_item": "Optical Ruby Prism",
+              "yields_clue": "Gives the exact angles for all three mirrors: 45° - 135° - 45°."
+            },
+            {
+              "id": "photocell_sensor",
+              "label": "Photodiode Door Sensor",
+              "description": "A photosensitive receptor mounted beside the magnetic door lock. When struck by the red beam, the circuit energizes.",
+              "clue_content": "SENSOR STATUS: AWAITING PHOTON BEAM"
+            }
+          ],
+          "puzzle": {
+            "type": "Spatial / Light Deflection Puzzle",
+            "input_mechanism": "3-Mirror Angle Dial Settings (45° - 135° - 45°)",
+            "correct_answer": "45-135-45",
+            "deduction_path": "Trace the required beam path from Emitter -> Mirror A -> Mirror B -> Mirror C -> Sensor. Mirror A must deflect an East beam South (45°). Mirror B must deflect a South beam East (135°). Mirror C must deflect an East beam North into the photodiode (45°).",
+            "hidden_clue_role": "Advises tracing the beam backwards from the sensor, confirms angles 45°-135°-45°, and yields the Optical Ruby Prism."
+          },
+          "hints": {
+            "tier_1": "Rotate the three mirrors so the laser beam travels around the obstacles and hits the round photodiode sensor on the exit door.",
+            "tier_2": "Trace the beam backwards from the door sensor to see which 90-degree turn each mirror needs to produce.",
+            "tier_3": "Set Mirror A to 45°, Mirror B to 135°, and Mirror C to 45°. The beam will strike the sensor and trigger the magnetic lock."
+          },
+          "reward": "Optical Ruby Prism & Unlocked Optics Lab Exit"
+        },
+        {
+          "room_number": 6,
+          "room_id": "room_b_06_electrical_lab",
+          "name": "Room 06: Electrical Lab",
+          "horror_title": "The High-Voltage Chasm",
+          "lore": "When the substation exploded, 10,000 volts surged through the grounding grid, electrocuting the maintenance crew instantly. Their scorched outlines are permanently burned into the cinderblock wall behind the main breaker.",
+          "visual_description": "Thick rubber cables snake across flooded concrete floors. Giant step-down transformers hum with an ominous low B-flat buzz. Blue electrical arcs intermittently crackle across broken ceramic insulators overhead.",
+          "hotspots": [
+            {
+              "id": "circuit_schematic",
+              "label": "Substation Emergency Blueprint",
+              "description": "A faded technical drawing illustrating the 5-bus breaker architecture.",
+              "clue_content": "EMERGENCY BUS LOGIC:\nBus 1: Main Generator Feed (Required: ON)\nBus 2: Secondary Capacitor (DAMAGED COIL: MUST REMAIN OFF)\nBus 3: Isolation Relay (Required: ON)\nBus 4: Ground Fault Bypass (FAULT ACTIVE: MUST REMAIN OFF)\nBus 5: Cryo-Turbine Circuit (Required: ON)"
+            },
+            {
+              "id": "warning_hatch_breaker",
+              "label": "Warning Hatch of Breaker Panel Box",
+              "is_hidden_clue": true,
+              "mandatory_pdf_location": "Sealed behind the warning hatch of the breaker panel box",
+              "description": "A hinged yellow hazard warning hatch on the side of the 480V breaker box.",
+              "discovery_text": "Prying open the sealed warning hatch reveals an electrician's emergency tag: \"Ensure the ground wire bypasses lines 2 & 4! Toggle: 1=ON, 2=OFF, 3=ON, 4=OFF, 5=ON (10101). Restores power without fatal arc flash.\" Hanging inside is a Heavy Ceramic Fuse.",
+              "yields_item": "Heavy Ceramic Fuse",
+              "yields_clue": "Explicit switch positions: ON, OFF, ON, OFF, ON (10101)."
+            },
+            {
+              "id": "knife_switch_bank",
+              "label": "Bank of 5 Heavy Knife Switches",
+              "description": "Five large industrial copper knife switches numbered 1 through 5 with UP (ON) and DOWN (OFF) states.",
+              "clue_content": "SWITCH STATUS: [ 1: DOWN ] [ 2: DOWN ] [ 3: DOWN ] [ 4: DOWN ] [ 5: DOWN ]"
+            },
+            {
+              "id": "voltmeter_gauge",
+              "label": "Substation Voltmeter Gauge",
+              "description": "An analog needle gauge monitoring main bus voltage. Rises into the green zone when correct switches are thrown.",
+              "clue_content": "VOLTAGE: 0 V (DEAD)"
+            }
+          ],
+          "puzzle": {
+            "type": "Circuit Logic / Binary Switch Configuration",
+            "input_mechanism": "5-Switch Toggle Bank (ON/OFF)",
+            "correct_answer": "ON - OFF - ON - OFF - ON",
+            "deduction_path": "Examine the substation schematic to avoid short circuits. Bus 2 (damaged capacitor) and Bus 4 (ground fault) must stay OFF. Bus 1, 3, and 5 must be turned ON. Setting switches to ON-OFF-ON-OFF-ON (10101) restores power safely.",
+            "hidden_clue_role": "Explains grounding wire bypass, confirms sequence 1-0-1-0-1, and awards the Heavy Ceramic Fuse."
+          },
+          "hints": {
+            "tier_1": "Consult the blueprint to see which switches feed power and which are connected to damaged lines.",
+            "tier_2": "Ensure the ground wire bypasses circuits 2 and 4. Only switches 1, 3, and 5 should be engaged.",
+            "tier_3": "Flip Switch 1 to ON, Switch 2 to OFF, Switch 3 to ON, Switch 4 to OFF, and Switch 5 to ON (ON-OFF-ON-OFF-ON)."
+          },
+          "reward": "Heavy Ceramic Fuse & Facility Power Restoration"
+        },
+        {
+          "room_number": 7,
+          "room_id": "room_b_07_storage_room",
+          "name": "Room 07: Storage Room",
+          "horror_title": "The Weight of the Dead",
+          "lore": "Radioactive isotopes and anomalous chemical waste were secretly stashed here in lead-lined drums. During the frantic evacuation, a technician hid the master cryogenic release fuse inside one of four identical lead containers before dying of acute radiation poisoning.",
+          "visual_description": "Rows of rusted industrial shelving sag under the weight of decaying wooden crates and dented barrels labeled with flaking trefoil radiation warnings. A vintage dual-pan mechanical balance scale sits atop an iron workbench.",
+          "hotspots": [
+            {
+              "id": "balance_scale",
+              "label": "Mechanical Dual-Pan Balance Scale",
+              "description": "A calibrated brass mechanical balance scale with left and right pans for comparing container weights.",
+              "clue_content": "SCALE READINGS:\nCanister A vs Canister B -> PERFECT BALANCE (Both 100g)\nCanister A + B vs Canister C + D -> TIPS HEAVILY TO RIGHT\nCanister C vs Canister D -> TIPS HEAVILY DOWN ON C (C is 150g, D is 100g)"
+            },
+            {
+              "id": "four_lead_canisters",
+              "label": "Four Identical Lead Canisters (A, B, C, D)",
+              "description": "Four heavy cylindrical lead containers with twist-off sealing caps.",
+              "clue_content": "CANISTERS: Canister A, Canister B, Canister C, Canister D"
+            },
+            {
+              "id": "textbook_dummy_shelf",
+              "label": "Hollowed-Out Textbook Dummy on Bottom Shelf",
+              "is_hidden_clue": true,
+              "mandatory_pdf_location": "Hidden inside a hollowed-out textbook dummy on the bottom shelf",
+              "description": "A thick volume of \"Advanced Nuclear Geometries (1989)\" resting on the lowest metal shelf.",
+              "discovery_text": "Opening the hollowed-out textbook dummy on the bottom shelf reveals a radiation tech's note: \"Balance the known weights. Three containers are empty lead decoys (100g each). Canister C holds the dense master fuse (150g). Select C.\" A Lead-Lined Handling Glove is inside.",
+              "yields_item": "Lead-Lined Handling Glove",
+              "yields_clue": "Directly confirms Canister C as the heavy anomalous container holding the fuse."
+            },
+            {
+              "id": "canister_decoupler",
+              "label": "Canister Decoupler Press",
+              "description": "A hydraulic press on the counter designed to crack open the chosen canister.",
+              "clue_content": "SELECTION: INSERT TARGET CANISTER (A, B, C, or D)"
+            }
+          ],
+          "puzzle": {
+            "type": "Measurement / Deductive Weight Balance",
+            "input_mechanism": "Canister Selection (A, B, C, or D)",
+            "correct_answer": "Canister C",
+            "deduction_path": "Use the balance scale to isolate the anomalous heavy container. Weighing A vs B shows equal weight. Weighing C vs D reveals C is significantly heavier. Canister C contains the cryogenic release fuse.",
+            "hidden_clue_role": "Explains balancing known weights, confirms Canister C, and yields the Lead-Lined Handling Glove and Cryogenic Master Fuse."
+          },
+          "hints": {
+            "tier_1": "Use the dual-pan balance scale to compare the weights of the four lead canisters (A, B, C, and D).",
+            "tier_2": "Balance the known weights against each other: three canisters weigh the same, but one is heavier because it contains the master fuse.",
+            "tier_3": "Canister C tips the scale down against all other canisters. Select Canister C to extract the fuse."
+          },
+          "reward": "Cryogenic Master Fuse & Lead-Lined Handling Glove"
+        },
+        {
+          "room_number": 8,
+          "room_id": "room_b_08_research_office",
+          "name": "Room 08: Research Office",
+          "horror_title": "The Project Zero Vault",
+          "lore": "The subterranean nerve center where Project Zero reached its catastrophic culmination. In the center of the room stands a massive reinforced titanium cryogenic vault, inside which the anomalous specimen remains suspended at -200°C. If the stabilization protocol isn't engaged, the failsafe detonates the entire campus.",
+          "visual_description": "Frost and icicles coat the walls, pipes, and control panels. Pale blue cryogenic vapor cascades like a waterfall from the seams of the massive vault door. A bank of amber CRT mainframe screens flickers with urgent containment alerts: \"CRITICAL SYSTEM FAULT — ENTER MISSION METRICS\".",
+          "hotspots": [
+            {
+              "id": "master_control_console",
+              "label": "Project Zero Master Control Terminal",
+              "description": "A curved steel control panel with amber monitors requiring the 4 primary operational parameters from Mission B.",
+              "clue_content": "PROJECT ZERO CONTAINMENT INTERFACE:\nMETRIC 1: Science Prep Calibration Code (Room 01)\nMETRIC 2: Fractal Sequence Term (Room 02)\nMETRIC 3: Elemental Synthesis PIN (Room 03)\nMETRIC 4: Mainframe Password (Room 04)\nHARDWARE: Cryogenic Master Fuse Insertion"
+            },
+            {
+              "id": "double_bottom_drawer",
+              "label": "Lead Researcher's Double-Bottom Desk Drawer",
+              "is_hidden_clue": true,
+              "mandatory_pdf_location": "Locked inside the double-bottom drawer of the lead researcher's desk",
+              "description": "Dr. Finch's steel executive desk. The right drawer has a spring-loaded false bottom.",
+              "discovery_text": "Prying open the double-bottom drawer reveals Dr. Finch's final cassette and log: \"Align the variables from the mission log: Prep Code [1429] - Math Term [55] - Chemistry PIN [6789] - Terminal Password [ZERO]. Insert the Cryogenic Master Fuse into the terminal cradle. God forgive what we built.\" You claim Dr. Finch's Golden Master Keycard.",
+              "yields_item": "Dr. Finch's Golden Master Keycard",
+              "yields_clue": "Synthesizes all four Mission B parameters: 1429-55-6789-ZERO."
+            },
+            {
+              "id": "fuse_receptacle_cradle",
+              "label": "Cryogenic Fuse Insertion Receptacle",
+              "description": "A high-voltage ceramic socket on the control console for inserting the master fuse.",
+              "clue_content": "SOCKET STATUS: FUSE DISENGAGED (INSERT MASTER FUSE)"
+            },
+            {
+              "id": "cryogenic_vault_door",
+              "label": "Titanium Cryogenic Vault Door",
+              "description": "The colossal circular blast vault locking the Project Zero specimen behind liquid nitrogen jets.",
+              "clue_content": "CONTAINMENT VAULT: 6 HYDRAULIC DOGS ARMED"
+            }
+          ],
+          "puzzle": {
+            "type": "Multi-Step Deduction / Control Room Synthesis",
+            "input_mechanism": "Four-Parameter Terminal Input + Fuse Insertion",
+            "correct_answer": "1429-55-6789-ZERO",
+            "deduction_path": "Align the variables gathered across Mission B: Room 01 prep code (1429), Room 02 math sequence term (55), Room 03 periodic table PIN (6789), and Room 04 computer lab password (ZERO). Input 1429-55-6789-ZERO and insert the Cryogenic Master Fuse.",
+            "hidden_clue_role": "Explains variable alignment, confirms 1429-55-6789-ZERO, and awards the Golden Master Keycard."
+          },
+          "hints": {
+            "tier_1": "The master terminal requires you to enter the four primary solutions you discovered across the science wing in sequential order.",
+            "tier_2": "Align the variables from the mission log: Science Block code (Room 01), Math Room sequence (Room 02), Chemistry Lab PIN (Room 03), and Computer Lab password (Room 04).",
+            "tier_3": "Enter '1429-55-6789-ZERO' into the console and insert the Cryogenic Master Fuse into the cradle to open the vault and escape."
+          },
+          "reward": "Project Zero Anomaly Dossier & Complete Game Escape Victory!"
+        }
+      ]
+    }
+  }
+}
